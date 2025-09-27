@@ -59,6 +59,7 @@
       { "name": "CSS", "icon": "css3-alt", "level": 90 },
       { "name": "JavaScript", "icon": "js-square", "level": 85 },
       { "name": "React", "icon": "react", "level": 70 },
+      { "name": "Next JS", "icon": "react", "level": 70 },
       { "name": "Vue", "icon": "vuejs", "level": 65 },
       { "name": "jQuery", "icon": "js-square", "level": 90 },
       { "name": "Ajax", "icon": "sync-alt", "level": 80 },
@@ -69,7 +70,6 @@
     "database": [
       { "name": "MS SQL Server", "icon": "database", "level": 85 },
       { "name": "MySQL", "icon": "database", "level": 80 },
-      { "name": "PostgreSQL", "icon": "database", "level": 70 },
       { "name": "SQLite", "icon": "database", "level": 75 },
       { "name": "MongoDB", "icon": "database", "level": 65 },
       { "name": "OOP", "icon": "cube", "level": 90 },
