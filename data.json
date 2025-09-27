@@ -124,18 +124,6 @@
   ],
   "projects": [
     {
-      "name": "Transport Management System (Fuel Module)",
-      "description": "Comprehensive transport management solution for tracking and managing vehicle fleets, drivers, routes, and deliveries.",
-      "technologies": [
-        ".NET Core",
-        "SQL Server",
-        "Bootstrap",
-        "jQuery",
-        "LINQ"
-      ],
-      "category": "current"
-    },
-    {
       "name": "Financial Transaction System (FTS)",
       "description": "Centralized platform for end-to-end management of sales, expenses, and transaction settlements across multiple branches.",
       "technologies": [
@@ -146,6 +134,18 @@
         "LINQ"
       ],
       "category": "enterprise"
+    },
+    {
+      "name": "Transport Management System (Fuel Module)",
+      "description": "Comprehensive transport management solution for tracking and managing vehicle fleets, drivers, routes, and deliveries.",
+      "technologies": [
+        ".NET Core",
+        "SQL Server",
+        "Bootstrap",
+        "jQuery",
+        "LINQ"
+      ],
+      "category": "current"
     },
     {
       "name": "HR Management System",
