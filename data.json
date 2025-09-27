@@ -1,0 +1,262 @@
+{
+  "personalInfo": {
+    "name": "ARG RABBI",
+    "title": "Full-Stack Software Developer | Problem Solver | Tech Lover",
+    "tagline": "Code makes me happy",
+    "experience": "5+ years experience building high-quality, scalable software",
+    "location": "Uttara, Dhaka, Bangladesh",
+    "currentCompany": "Sundarban Courier Service (Pvt) Ltd",
+    "email": "itrabbi24@gmail.com",
+    "avatar": "https://avatars.githubusercontent.com/u/52894020?v=4",
+    "resumeUrl": "www.rotexit.com/cv.pdf",
+    "socialLinks": {
+      "github": "https://github.com/itrabbi24",
+      "linkedin": "https://www.linkedin.com/in/itrabbi24",
+      "hackerrank": "https://www.hackerrank.com/profile/itrabbi24"
+    }
+  },
+  "about": {
+    "description": "Experienced Full-Stack Software Developer with a strong focus on building scalable and maintainable web applications. Skilled in both front-end and back-end development, with proven ability to design, develop, and deploy reliable solutions that meet business and user needs. Proficient in the full software development lifecycle, ensuring high performance, efficiency, and long-term maintainability.",
+    "highlights": [
+      {
+        "icon": "laptop-code",
+        "title": "Full-Stack Development",
+        "description": "End-to-end web application development"
+      },
+      {
+        "icon": "database",
+        "title": "Database Design",
+        "description": "Optimized and scalable database solutions"
+      },
+      {
+        "icon": "mobile-alt",
+        "title": "Responsive Design",
+        "description": "Mobile-first, cross-platform compatibility"
+      },
+      {
+        "icon": "rocket",
+        "title": "Performance",
+        "description": "Fast, efficient, and optimized solutions"
+      }
+    ]
+  },
+  "skills": {
+    "backend": [
+      { "name": "C#", "icon": "microsoft", "level": 90 },
+      { "name": ".NET Core", "icon": "microsoft", "level": 85 },
+      { "name": "VB.NET", "icon": "microsoft", "level": 75 },
+      { "name": "PHP", "icon": "php", "level": 80 },
+      { "name": "Laravel", "icon": "laravel", "level": 75 },
+      { "name": "Node.js", "icon": "node-js", "level": 70 },
+      { "name": "Web API", "icon": "plug", "level": 85 },
+      { "name": "RESTful APIs", "icon": "cloud", "level": 85 },
+      { "name": "Entity Framework", "icon": "database", "level": 80 },
+      { "name": "Express", "icon": "js-square", "level": 65 }
+    ],
+
+    "frontend": [
+      { "name": "HTML", "icon": "html5", "level": 95 },
+      { "name": "CSS", "icon": "css3-alt", "level": 90 },
+      { "name": "JavaScript", "icon": "js-square", "level": 85 },
+      { "name": "React", "icon": "react", "level": 70 },
+      { "name": "Vue", "icon": "vuejs", "level": 65 },
+      { "name": "jQuery", "icon": "js-square", "level": 90 },
+      { "name": "Ajax", "icon": "sync-alt", "level": 80 },
+      { "name": "Bootstrap", "icon": "bootstrap", "level": 85 },
+      { "name": "Tailwind CSS", "icon": "wind", "level": 80 }
+    ],
+
+    "database": [
+      { "name": "MS SQL Server", "icon": "database", "level": 85 },
+      { "name": "MySQL", "icon": "database", "level": 80 },
+      { "name": "PostgreSQL", "icon": "database", "level": 70 },
+      { "name": "SQLite", "icon": "database", "level": 75 },
+      { "name": "MongoDB", "icon": "database", "level": 65 },
+      { "name": "OOP", "icon": "cube", "level": 90 },
+      { "name": "LINQ", "icon": "code-branch", "level": 80 }
+    ]
+  },
+  "experience": [
+    {
+      "position": "Software Engineer",
+      "company": "Sundarban Courier Service (Pvt) Ltd",
+      "period": "Sep 2024 - Present",
+      "location": "Uttara, Dhaka, Bangladesh",
+      "description": "Working on PCM (Parcel Courier Management) system including desktop application (VB.NET + SQL Server) and web application (.NET Core + SQL Server). Developed Async SMS Service for centralized SMS management.",
+      "projects": [
+        "PCM (Parcel Courier Management) System (Working Now...)",
+        "PCM Desktop Application (VB.NET + SQL Server) (Current Project)",
+        "PCM Web Application (.NET Core + SQL Server) (Current Project)",
+        "Async SMS Service (Centralized SMS Management)"
+      ]
+    },
+    {
+      "position": "Software Engineer",
+      "company": "Shodagor Express Limited",
+      "period": "Jan 2022 - Sep 2024 (2 years 9 months)",
+      "location": "Washpur (Near to Bosila Bridge) Keraniganj, Dhaka-1312",
+      "description": "Full-Stack Development & System Support. Skilled in designing, developing, and maintaining scalable software solutions.",
+      "projects": [
+        "Financial Transaction System (FTS)",
+        "HR Management System",
+        "User Training & Adoption programs"
+      ]
+    },
+    {
+      "position": "Junior Executive (IT & Software Development)",
+      "company": "Sundarban Courier Service (Pvt) Ltd",
+      "period": "Oct 2019 - Jan 2022 (2 years 4 months)",
+      "location": "Dhaka, Bangladesh",
+      "description": "Full-stack development using ASP.NET Core, SQL Server, Laravel, and PHP.",
+      "projects": [
+        "Time Sheet Management System (Laravel + PHP + MySQL)",
+        "IT Stock Inventory Management System (Laravel + PHP + MySQL)",
+        "Transport Management System (Dot NET Core + SQL Server)"
+      ]
+    },
+    {
+      "position": "Computer Operator",
+      "company": "Sundarban Courier Service (Pvt) Ltd",
+      "period": "Oct 2017 - Oct 2019 (2 years 1 month)",
+      "location": "Kallyanpur Dhaka",
+      "description": "IT Support Specialist ensuring smooth computer system operations."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Transport Management System (Fuel Module)",
+      "description": "Comprehensive transport management solution for tracking and managing vehicle fleets, drivers, routes, and deliveries.",
+      "technologies": [
+        ".NET Core",
+        "SQL Server",
+        "Bootstrap",
+        "jQuery",
+        "LINQ"
+      ],
+      "category": "current"
+    },
+    {
+      "name": "Financial Transaction System (FTS)",
+      "description": "Centralized platform for end-to-end management of sales, expenses, and transaction settlements across multiple branches.",
+      "technologies": [
+        ".NET Core",
+        "MSSQL Server",
+        "Bootstrap",
+        "jQuery",
+        "LINQ"
+      ],
+      "category": "enterprise"
+    },
+    {
+      "name": "HR Management System",
+      "description": "Comprehensive HR solution with modules for attendance, salary processing, leave management, and employee records.",
+      "technologies": [
+        ".NET Core",
+        "MSSQL Server",
+        "Bootstrap",
+        "jQuery",
+        "LINQ"
+      ],
+      "category": "enterprise"
+    },
+    {
+      "name": "Time Sheet Management System",
+      "description": "Transport time tracking and management system for logistics operations.",
+      "technologies": ["Laravel", "PHP", "MySQL", "Bootstrap"],
+      "category": "web"
+    },
+    {
+      "name": "IT Stock Inventory Management",
+      "description": "Comprehensive system for tracking purchases, stock levels, storage, and servicing.",
+      "technologies": ["Laravel", "PHP", "MySQL", "Bootstrap"],
+      "category": "web"
+    },
+    {
+      "name": "ArwizGlobal Inventory",
+      "description": "Inventory management system with modern web interface.",
+      "technologies": ["Laravel", "PHP", "MySQL", "Vue"],
+      "category": "web"
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Sc. in Computer Science & Engineering (CSE)",
+      "institution": "European University of Bangladesh (EUB)",
+      "period": "2019 - 2022",
+      "grade": "A",
+      "description": "Graduated with a B.Sc. in Computer Science & Engineering (CSE) in January 2023. Equipped with a strong foundation in computer science principles and practical skills."
+    },
+    {
+      "degree": "Diploma Engineering in Electrical",
+      "institution": "Rajshahi Institute Of Technology (RIT)",
+      "period": "2012 - 2016",
+      "description": "Diploma Engineering In Electrical Engineering with comprehensive technical knowledge and practical skills."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Complete Web Development Course",
+      "issuer": "Programming Hero",
+      "date": "Dec 2024",
+      "credentialId": "WEB9-0941",
+      "url": ""
+    },
+    {
+      "name": "MERN Stack Level-2 Web Development",
+      "issuer": "Programming Hero",
+      "date": "Dec 2024",
+      "credentialId": "MERN2-2025",
+      "url": "" 
+    },
+    {
+      "name": "Database Normalization",
+      "issuer": "Great Learning",
+      "date": "Oct 2024",
+      "credentialId": "TVCETXRJ",
+      "url": "https://www.mygreatlearning.com/certificate/TVCETXRJ"
+    },
+    {
+      "name": "Prompt Engineering for ChatGPT",
+      "issuer": "Great Learning",
+      "date": "Oct 2024",
+      "credentialId": "ERVZZYKK",
+      "url": "https://www.mygreatlearning.com/certificate/ERVZZYKK"
+    },
+    {
+      "name": ".NET Core Microservices - The Complete Guide",
+      "issuer": "Udemy",
+      "date": "Oct 2023",
+      "credentialId": "UC-5adc180e-cdb0-4d1c-a622-f11bc18ec48f",
+      "url": "https://www.udemy.com/certificate/UC-5adc180e-cdb0-4d1c-a622-f11bc18ec48f"
+    },
+    {
+      "name": "Fundamentals of Digital Marketing",
+      "issuer": "Google Digital Garage",
+      "date": "Jun 2020",
+      "credentialId": "HY8 239 TVV",
+      "url": ""
+    },
+    {
+      "name": "SQL (Basic)",
+      "issuer": "HackerRank",
+      "date": "",
+      "credentialId": "AF2E0E1B978F",
+      "url": "https://www.hackerrank.com/certificates/af2e0e1b978f"
+    },
+    {
+      "name": "SQL (Intermediate)",
+      "issuer": "HackerRank",
+      "date": "",
+      "credentialId": "7AA2A56CBFE6",
+      "url": "https://www.hackerrank.com/certificates/7aa2a56cbfe6"
+    },
+    {
+      "name": "SQL (Advanced)",
+      "issuer": "HackerRank",
+      "date": "",
+      "credentialId": "232C3CA6B8EA",
+      "url": "https://www.hackerrank.com/certificates/232c3ca6b8ea"
+    }
+  ]
+}
+    

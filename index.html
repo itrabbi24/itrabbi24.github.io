@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARG RABBI - Full-Stack Software Developer</title>
+    <meta name="description" content="Experienced Full-Stack Software Developer specializing in .NET, Laravel, React, and modern web technologies. Building scalable, efficient software solutions.">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="ARG RABBI - Full-Stack Software Developer">
+    <meta property="og:description" content="Experienced Full-Stack Software Developer specializing in .NET, Laravel, React, and modern web technologies.">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/52894020?v=4">
+    <meta property="og:url" content="https://itrabbi24.github.io">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ARG RABBI - Full-Stack Software Developer">
+    <meta name="twitter:description" content="Experienced Full-Stack Software Developer specializing in .NET, Laravel, React, and modern web technologies.">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/52894020?v=4">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/52894020?v=4">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'spin-slow': 'spin 3s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            cursor: none;
+            overflow-x: hidden;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .glass-effect {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .skill-pill {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dark .skill-pill:hover {
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .project-card:hover::before {
+            left: 100%;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dark .project-card:hover {
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            bottom: -10px;
+            left: 20%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        /* Custom cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.5);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.2s ease;
+        }
+        
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.6s ease;
+        }
+        
+        /* Animation for elements when they come into view */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Gradient backgrounds */
+        .hero-gradient {
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.1), transparent 40%);
+        }
+        
+        .dark .hero-gradient {
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.05), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.05), transparent 40%);
+        }
+        
+        /* Floating elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-delay-1 {
+            animation-delay: 1s;
+        }
+        
+        .floating-delay-2 {
+            animation-delay: 2s;
+        }
+        
+        /* Certificate badges */
+        .cert-badge {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cert-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cert-badge:hover::before {
+            left: 100%;
+        }
+        
+        .cert-badge:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -23px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+        
+        .dark .timeline-item::before {
+            border: 3px solid #1f2937;
+        }
+        
+        /* Progress bars */
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            overflow: hidden;
+        }
+        
+        .dark .progress-bar {
+            background: #374151;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 1s ease-in-out;
+        }
+        
+        /* Motion animations - Simplified CSS approach */
+        .motion-slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUpAnimation 0.6s ease-out forwards;
+        }
+        
+        .motion-fade-in {
+            opacity: 0;
+            animation: fadeInAnimation 0.5s ease-in-out forwards;
+        }
+        
+        .motion-scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            animation: scaleInAnimation 0.5s ease-out forwards;
+        }
+        
+        @keyframes slideUpAnimation {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInAnimation {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes scaleInAnimation {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* New design elements */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .tech-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.7s;
+        }
+        
+        .contact-card:hover::before {
+            left: 100%;
+        }
+        
+        .education-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .education-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.5s ease;
+        }
+        
+        .education-card:hover::after {
+            width: 100%;
+        }
+        
+        .education-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Particle background */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.1);
+            animation: float 15s infinite linear;
+        }
+        
+        /* Skill bars */
+        .skill-bar {
+            height: 10px;
+            border-radius: 5px;
+            background: #e5e7eb;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .dark .skill-bar {
+            background: #374151;
+        }
+        
+        .skill-level {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-level::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Particle Background -->
+    <div class="particles-container" id="particles-container"></div>
+
+    <!-- Header/Navigation -->
+    <header class="fixed w-full z-50 glass-effect">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold gradient-text motion-fade-in">ARG RABBI</a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="nav-link motion-fade-in" style="animation-delay: 0.1s">Home</a>
+                <a href="#about" class="nav-link motion-fade-in" style="animation-delay: 0.2s">About</a>
+                <a href="#skills" class="nav-link motion-fade-in" style="animation-delay: 0.3s">Skills</a>
+                <a href="#experience" class="nav-link motion-fade-in" style="animation-delay: 0.4s">Experience</a>
+                <a href="#projects" class="nav-link motion-fade-in" style="animation-delay: 0.5s">Projects</a>
+                <a href="#education" class="nav-link motion-fade-in" style="animation-delay: 0.6s">Education</a>
+                <a href="#certifications" class="nav-link motion-fade-in" style="animation-delay: 0.7s">Certifications</a>
+                <a href="#contact" class="nav-link motion-fade-in" style="animation-delay: 0.8s">Contact</a>
+            </div>
+            
+            <!-- Theme Toggle and Mobile Menu Button -->
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="theme-toggle p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors motion-fade-in" style="animation-delay: 0.9s">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors motion-fade-in" style="animation-delay: 1s">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 py-2 px-4 glass-effect">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="nav-link py-2">Home</a>
+                <a href="#about" class="nav-link py-2">About</a>
+                <a href="#skills" class="nav-link py-2">Skills</a>
+                <a href="#experience" class="nav-link py-2">Experience</a>
+                <a href="#projects" class="nav-link py-2">Projects</a>
+                <a href="#education" class="nav-link py-2">Education</a>
+                <a href="#certifications" class="nav-link py-2">Certifications</a>
+                <a href="#contact" class="nav-link py-2">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 pb-10 px-4 hero-gradient relative">
+        <div class="container mx-auto text-center">
+            <div class="max-w-4xl mx-auto">
+                <!-- Floating elements -->
+                <div class="floating absolute top-20 left-10 w-10 h-10 bg-blue-500 rounded-full opacity-20"></div>
+                <div class="floating floating-delay-1 absolute top-40 right-20 w-6 h-6 bg-purple-500 rounded-full opacity-30"></div>
+                <div class="floating floating-delay-2 absolute bottom-40 left-20 w-8 h-8 bg-cyan-500 rounded-full opacity-25"></div>
+                
+                <img src="https://avatars.githubusercontent.com/u/52894020?v=4" alt="ARG RABBI" class="w-48 h-48 rounded-full mx-auto mb-8 border-4 border-white dark:border-gray-700 shadow-2xl hover:scale-105 transition-transform duration-300 motion-scale-in">
+                
+                <h1 class="text-5xl md:text-6xl font-bold mb-4 motion-slide-up">
+                    <span class="gradient-text" id="hero-name">Loading...</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 mb-2 motion-slide-up" style="animation-delay: 0.2s" id="hero-title">Loading...</h2>
+                <p class="text-xl text-gray-500 dark:text-gray-500 mb-6 motion-slide-up" style="animation-delay: 0.3s" id="hero-tagline">Loading...</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8 motion-slide-up" style="animation-delay: 0.4s">
+                    <div class="flex items-center justify-center text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
+                        <span id="hero-location">Loading...</span>
+                    </div>
+                    <div class="flex items-center justify-center text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-building mr-2 text-purple-500"></i>
+                        <span id="hero-company">Loading...</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center space-x-4 mb-8 motion-slide-up" style="animation-delay: 0.5s" id="hero-socials">
+                    <!-- Social links will be populated by JavaScript -->
+                </div>
+                
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 motion-slide-up" style="animation-delay: 0.6s">
+                    <a href="#contact" class="gradient-bg hover:opacity-90 text-white px-8 py-3 rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg">Get In Touch</a>
+                    <a href="#" id="resume-link" class="border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white px-8 py-3 rounded-lg font-medium transition-all transform hover:scale-105">Download Resume</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title motion-slide-up">About Me</h2>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="motion-slide-up">
+                    <div class="bg-gradient-conic from-blue-500/10 to-purple-500/10 p-8 rounded-2xl shadow-xl">
+                        <p class="text-lg leading-relaxed" id="about-description">
+                            Loading...
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="motion-slide-up" style="animation-delay: 0.2s">
+                    <div class="grid grid-cols-2 gap-4" id="about-highlights">
+                        <!-- About highlights will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title motion-slide-up">Technical Skills</h2>
+            
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="skills-container">
+                <!-- Skills will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-4 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title motion-slide-up">Work Experience</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="timeline" id="experience-timeline">
+                    <!-- Experience will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title motion-slide-up">Featured Projects</h2>
+            
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8" id="projects-container">
+                <!-- Projects will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 px-4 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title motion-slide-up">Education</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="education-container">
+                    <!-- Education will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title motion-slide-up">Licenses & Certifications</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="certifications-container">
+                        <!-- Certifications will be populated by JavaScript -->
+                    </div>
+                    
+                    <!-- HackerRank Certifications -->
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center motion-slide-up">
+                            <i class="fab fa-hackerrank mr-2 text-green-500"></i> HackerRank Certifications
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="hackerrank-container">
+                            <!-- HackerRank certifications will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title motion-slide-up">Get In Touch</h2>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="motion-slide-up contact-card bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-8">
+                    <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                    
+                    <div class="space-y-6" id="contact-info">
+                        <!-- Contact info will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-medium text-lg mb-4">Follow Me</h4>
+                        <div class="flex space-x-4" id="contact-socials">
+                            <!-- Social links will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="motion-slide-up contact-card bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-8" style="animation-delay: 0.2s">
+                    <h3 class="text-2xl font-semibold mb-6">Send Me a Message</h3>
+                    
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-2">Your Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2">Your Message</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 transition-colors"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full gradient-bg hover:opacity-90 text-white py-3 px-4 rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <p class="text-2xl font-bold gradient-text mb-2">ARG RABBI</p>
+                    <p class="text-gray-400">Full-Stack Software Developer</p>
+                    <p class="text-gray-400 mt-2">
+                        &copy; 2019 - <span id="year"></span> ARG RABBI. All rights reserved.
+                    </p>
+
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#home" class="hover:text-blue-300 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-blue-300 transition-colors">About</a>
+                    <a href="#projects" class="hover:text-blue-300 transition-colors">Projects</a>
+                    <a href="#contact" class="hover:text-blue-300 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+         document.getElementById('year').textContent = new Date().getFullYear();
+        // Load data from JSON file using jQuery
+        $(document).ready(function() {
+            $.getJSON('data.json', function(data) {
+                // Populate Hero Section
+                $('#hero-name').text(data.personalInfo.name);
+                $('#hero-title').text(data.personalInfo.title);
+                $('#hero-tagline').html(`"${data.personalInfo.tagline}" <span class="text-sm">(${data.personalInfo.experience})</span>`);
+                $('#hero-location').text(data.personalInfo.location);
+                $('#hero-company').text(data.personalInfo.currentCompany);
+                $('#resume-link').attr('href', data.personalInfo.resumeUrl);
+                
+                // Populate Social Links
+                let socialLinksHtml = '';
+                for (const [platform, url] of Object.entries(data.personalInfo.socialLinks)) {
+                    const icons = {
+                        github: 'github',
+                        linkedin: 'linkedin-in',
+                        hackerrank: 'hackerrank'
+                    };
+                    const colors = {
+                        github: 'gray',
+                        linkedin: 'blue',
+                        hackerrank: 'green'
+                    };
+                    
+                    socialLinksHtml += `
+                        <a href="${url}" target="_blank" class="p-3 bg-${colors[platform]}-600 text-white rounded-full hover:bg-${colors[platform]}-500 transition-all transform hover:scale-110 shadow-lg">
+                            <i class="fab fa-${icons[platform]} text-xl"></i>
+                        </a>
+                    `;
+                }
+                $('#hero-socials').html(socialLinksHtml);
+                $('#contact-socials').html(socialLinksHtml);
+                
+                // Populate About Section
+                $('#about-description').text(data.about.description);
+                
+                let aboutHighlightsHtml = '';
+                data.about.highlights.forEach(highlight => {
+                    aboutHighlightsHtml += `
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 gradient-bg rounded-full flex items-center justify-center">
+                                <i class="fas fa-${highlight.icon} text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg mb-2">${highlight.title}</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">${highlight.description}</p>
+                        </div>
+                    `;
+                });
+                $('#about-highlights').html(aboutHighlightsHtml);
+                
+                // Populate Skills Section
+                let skillsHtml = '';
+                const skillCategories = [
+                    { title: 'Backend', icon: 'server', skills: data.skills.backend, color: 'blue' },
+                    { title: 'Frontend', icon: 'code', skills: data.skills.frontend, color: 'green' },
+                    { title: 'Database & Tools', icon: 'database', skills: data.skills.database, color: 'purple' }
+                ];
+                
+                skillCategories.forEach(category => {
+                    let skillsListHtml = '';
+                    category.skills.forEach(skill => {
+                        // Determine the correct prefix
+                        let prefix = '';
+                        const brandIcons = ['microsoft','php','laravel','node-js','react','vuejs','js-square','bootstrap','tailwind'];
+                        if(brandIcons.includes(skill.icon)){
+                            prefix = 'fab';
+                        } else {
+                            prefix = 'fas';
+                        }
+
+                        skillsListHtml += `
+                            <span class="skill-pill bg-${category.color}-100 dark:bg-${category.color}-900 text-${category.color}-800 dark:text-${category.color}-200 px-4 py-2 rounded-full font-medium flex items-center">
+                                <i class="${prefix} fa-${skill.icon} mr-2"></i> ${skill.name}
+                                <div class="ml-2 w-16 h-2 bg-${category.color}-200 dark:bg-${category.color}-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-${category.color}-500 rounded-full" style="width: ${skill.level}%"></div>
+                                </div>
+                            </span>
+                        `;
+                    });
+
+                    
+                    skillsHtml += `
+                        <div class="motion-slide-up bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 transform hover:-translate-y-2 transition-transform duration-300">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-${category.icon} text-white text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-semibold">${category.title}</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                ${skillsListHtml}
+                            </div>
+                        </div>
+                    `;
+                });
+                $('#skills-container').html(skillsHtml);
+                
+                // Populate Experience Section
+                let experienceHtml = '';
+                data.experience.forEach((exp, index) => {
+                    let projectsHtml = '';
+                    if (exp.projects) {
+                        projectsHtml = `
+                            <p class="font-medium mb-2">Key Projects & Contributions:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                ${exp.projects.map(project => `<li>${project}</li>`).join('')}
+                            </ul>
+                        `;
+                    }
+                    
+                    experienceHtml += `
+                        <div class="timeline-item motion-slide-up" style="animation-delay: ${index * 0.1}s">
+                            <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-6 mb-6">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                    <div>
+                                        <h3 class="text-xl font-semibold">${exp.position}</h3>
+                                        <p class="text-blue-500 font-medium">${exp.company}</p>
+                                    </div>
+                                    <div class="text-gray-600 dark:text-gray-400 mt-2 md:mt-0">
+                                        <p>${exp.period}</p>
+                                        <p>${exp.location}</p>
+                                    </div>
+                                </div>
+                                <div class="prose dark:prose-invert max-w-none">
+                                    <p class="mb-4">${exp.description}</p>
+                                    ${projectsHtml}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                $('#experience-timeline').html(experienceHtml);
+                
+                // Populate Projects Section
+                let projectsHtml = '';
+                data.projects.forEach((project, index) => {
+                    const icons = {
+                        current: 'money-bill-wave',
+                        enterprise: 'users',
+                        web: 'boxes'
+                    };
+                    
+                    projectsHtml += `
+                        <div class="motion-slide-up project-card bg-white dark:bg-gray-700 rounded-2xl shadow-xl overflow-hidden" style="animation-delay: ${index * 0.1}s">
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mr-4">
+                                        <i class="fas fa-${icons[project.category] || 'code'} text-white text-xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-semibold">${project.name}</h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400 mb-6">${project.description}</p>
+                                
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    ${project.technologies.map(tech => {
+                                        const colorClasses = {
+                                            '.NET Core': 'blue',
+                                            'VB.NET': 'blue', 
+                                            'SQL Server': 'purple',
+                                            'Bootstrap': 'green',
+                                            'jQuery': 'green',
+                                            'LINQ': 'blue',
+                                            'Laravel': 'red',
+                                            'PHP': 'purple',
+                                            'MySQL': 'purple',
+                                            'Vue': 'green',
+                                            'MSSQL Server': 'purple'
+                                        };
+                                        const color = colorClasses[tech] || 'gray';
+                                        return `<span class="bg-${color}-100 dark:bg-${color}-900 text-${color}-800 dark:text-${color}-200 px-3 py-1 rounded-full text-sm font-medium">${tech}</span>`;
+                                    }).join('')}
+                                </div>
+                                
+                                <div class="flex space-x-4">
+                                    <span class="text-blue-500 flex items-center font-medium">
+                                        <i class="fas fa-lock mr-2"></i> Private Repository
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                $('#projects-container').html(projectsHtml);
+                
+                // Populate Education Section
+                let educationHtml = '';
+                data.education.forEach((edu, index) => {
+                    const colors = ['blue', 'purple'];
+                    educationHtml += `
+                        <div class="motion-slide-up education-card bg-gradient-to-br from-${colors[index]}-50 to-${colors[index]}-100 dark:from-${colors[index]}-900/20 dark:to-${colors[index]}-800/20 p-6 rounded-xl border border-${colors[index]}-200 dark:border-${colors[index]}-700" style="animation-delay: ${index * 0.1}s">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-${index === 0 ? 'graduation-cap' : 'certificate'} text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-lg">${edu.degree}</h3>
+                                    <p class="text-${colors[index]}-600 dark:text-${colors[index]}-400">${edu.institution}</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">${edu.period} ${edu.grade ? '| Grade: ' + edu.grade : ''}</p>
+                            <p class="text-gray-700 dark:text-gray-300">${edu.description}</p>
+                        </div>
+                    `;
+                });
+                $('#education-container').html(educationHtml);
+                
+                // Populate Certifications Section
+                let certificationsHtml = '';
+                let hackerrankHtml = '';
+                
+                data.certifications.forEach((cert, index) => {
+    // ==========================
+    // HackerRank badges section
+    // ==========================
+    if (cert.issuer === 'HackerRank') {
+        const colors = ['green', 'yellow', 'red'];
+        const colorIndex = cert.name.includes('Basic') ? 0
+                          : cert.name.includes('Intermediate') ? 1 : 2;
+
+        hackerrankHtml += `
+            <div class="motion-slide-up cert-badge text-center p-6 bg-gradient-to-br from-${colors[colorIndex]}-50 to-${colors[colorIndex]}-100 dark:from-${colors[colorIndex]}-900/20 dark:to-${colors[colorIndex]}-800/20 rounded-xl border border-${colors[colorIndex]}-200 dark:border-${colors[colorIndex]}-700" style="animation-delay: ${index * 0.1}s">
+                <div class="w-16 h-16 mx-auto mb-4 bg-${colors[colorIndex]}-100 dark:bg-${colors[colorIndex]}-900 rounded-full flex items-center justify-center">
+                    <i class="fas fa-database text-${colors[colorIndex]}-600 dark:text-${colors[colorIndex]}-400 text-2xl"></i>
+                </div>
+                <h4 class="font-semibold">${cert.name}</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">${cert.issuer}</p>
+                ${cert.url
+                    ? `<a href="${cert.url}" target="_blank" class="inline-block mt-3 text-${colors[colorIndex]}-600 dark:text-${colors[colorIndex]}-400 text-sm font-medium">View Certificate</a>`
+                    : ''
+                }
+            </div>
+        `;
+    }
+
+    // ==========================
+    // All other certifications
+    // ==========================
+    else {
+        const colors = ['green', 'blue', 'purple', 'yellow', 'red'];
+        const colorIndex = index % colors.length;
+
+        // Decide icon name + prefix
+        let iconName = 'chart-line';   // default fallback
+        let iconPrefix = 'fas';        // solid prefix by default
+
+        if (cert.name.includes('Web')) {
+            iconName = 'code';
+        } else if (cert.name.includes('Database')) {
+            iconName = 'database';
+        } else if (cert.name.includes('Prompt')) {
+            iconName = 'robot';
+        } else if (cert.name.includes('.NET')) {
+            iconName = 'microsoft';
+            iconPrefix = 'fab';        // ✅ Microsoft is a brand
+        }
+
+        certificationsHtml += `
+            <div class="motion-slide-up cert-badge bg-gradient-to-br from-${colors[colorIndex]}-50 to-${colors[colorIndex]}-100 dark:from-${colors[colorIndex]}-900/20 dark:to-${colors[colorIndex]}-800/20 p-5 rounded-xl border border-${colors[colorIndex]}-200 dark:border-${colors[colorIndex]}-700" style="animation-delay: ${index * 0.1}s">
+                <div class="flex items-start mb-3">
+                    <div class="w-10 h-10 bg-${colors[colorIndex]}-100 dark:bg-${colors[colorIndex]}-900 rounded-lg flex items-center justify-center mr-3">
+                        <i class="${iconPrefix} fa-${iconName} text-${colors[colorIndex]}-600 dark:text-${colors[colorIndex]}-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">${cert.name}</h3>
+                        <p class="text-${colors[colorIndex]}-600 dark:text-${colors[colorIndex]}-400 text-sm">${cert.issuer}</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">
+                    ${cert.date ? 'Issued ' + cert.date : ''}
+                    ${cert.credentialId ? ' | Credential ID ' + cert.credentialId : ''}
+                </p>
+                ${cert.url
+                    ? `<a href="${cert.url}" target="_blank" class="text-${colors[colorIndex]}-500 hover:text-${colors[colorIndex]}-600 text-sm font-medium">See credential</a>`
+                    : ''
+                }
+            </div>
+        `;
+    }
+});
+
+                
+                $('#certifications-container').html(certificationsHtml);
+                $('#hackerrank-container').html(hackerrankHtml);
+                
+                // Populate Contact Section
+                let contactInfoHtml = `
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-envelope text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-lg">Email</p>
+                            <p class="text-gray-600 dark:text-gray-400">${data.personalInfo.email}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-lg">Location</p>
+                            <p class="text-gray-600 dark:text-gray-400">${data.personalInfo.location}</p>
+                        </div>
+                    </div>
+                    
+
+                `;
+                
+                $('#contact-info').html(contactInfoHtml);
+                
+                // Initialize animations after content is loaded
+                initializeAnimations();
+            }).fail(function() {
+                console.error('Error loading data.json');
+                // Fallback content or error message
+            });
+        });
+        
+        // Initialize animations with CSS animations
+        function initializeAnimations() {
+            // Add staggered animation delays to motion elements
+            const motionElements = document.querySelectorAll('.motion-slide-up, .motion-fade-in, .motion-scale-in');
+            motionElements.forEach((el, index) => {
+                const delay = index * 100;
+                el.style.animationDelay = `${delay}ms`;
+            });
+        }
+        
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+        
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform = 'scale(0.8)';
+            cursorFollower.style.transform = 'scale(1.2)';
+        });
+        
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'scale(1)';
+            cursorFollower.style.transform = 'scale(1)';
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check for saved theme preference or use OS preference
+        const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.querySelector('i').classList.toggle('fa-bars');
+            mobileMenuButton.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.querySelector('i').classList.add('fa-bars');
+                mobileMenuButton.querySelector('i').classList.remove('fa-times');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the form data to a server
+            // For this demo, we'll just show an alert
+            alert('Thank you for your message! In a real implementation, this would be sent to a backend service.');
+            contactForm.reset();
+        });
+        
+        // Create particle background
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const animationDuration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        createParticles();
+    </script>
+</body>
+</html>
