@@ -58,7 +58,7 @@
       { "name": "HTML", "icon": "html5", "level": 95 },
       { "name": "CSS", "icon": "css3-alt", "level": 90 },
       { "name": "JavaScript", "icon": "js-square", "level": 85 },
-{ "name": "TypeScript", "icon": "ts-square", "level": 65 },
+{ "name": "TypeScript", "icon": "typescript", "level": 65 },
       { "name": "React", "icon": "react", "level": 70 },
       { "name": "Next JS", "icon": "react", "level": 70 },
       { "name": "Vue", "icon": "vuejs", "level": 65 },
