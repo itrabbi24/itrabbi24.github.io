@@ -14,7 +14,7 @@ A cutting-edge, fully-responsive personal portfolio for **ARG RABBY** ([@itrabbi
 - **Back to top** button, scroll-spy navigation, and hamburger mobile menu
 - **Glassmorphism** cards, neon gradient accents, smooth Framer Motion animations
 
-## 🛠 Tech Stack
+## 🛠 Tech Stack 
 
 | Layer      | Tech                                      |
 |------------|-------------------------------------------|
