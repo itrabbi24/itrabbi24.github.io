@@ -128,8 +128,9 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       ref={ref}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-start sm:items-center justify-center overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #030712 0%, #0f0c29 40%, #1a0533 70%, #030712 100%)' }}
     >
       <ParticleCanvas />
@@ -150,7 +151,7 @@ export default function Hero() {
 
       <motion.div
         style={{ y, opacity }}
-        className="section-container relative z-10 text-center"
+        className="section-container relative z-10 text-center pt-24 sm:pt-0 pb-16 sm:pb-0"
       >
         {/* Badge */}
         <motion.div

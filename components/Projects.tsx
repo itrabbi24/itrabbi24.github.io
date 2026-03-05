@@ -106,7 +106,7 @@ const techColors: Record<string, string> = {
 };
 
 function ProjectCard({ project, index, inView }: { project: Project; index: number; inView: boolean }) {
-  const [flipped, setFlipped] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <motion.div
@@ -114,105 +114,117 @@ function ProjectCard({ project, index, inView }: { project: Project; index: numb
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="group relative cursor-pointer"
-      style={{ perspective: '1000px' }}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      onClick={() => setFlipped((v) => !v)}
+      className="group cursor-pointer"
+      onMouseEnter={() => setExpanded(true)}
+      onMouseLeave={() => setExpanded(false)}
+      onClick={() => setExpanded((v) => !v)}
     >
-      <motion.div
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
-        style={{ transformStyle: 'preserve-3d', position: 'relative', minHeight: '320px' }}
-      >
-        {/* Front */}
-        <div className="absolute inset-0 card overflow-hidden" style={{ backfaceVisibility: 'hidden' }}>
-          <div className={`h-40 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
-            <div className="text-6xl">{project.emoji}</div>
-            <div className="absolute inset-0 opacity-10"
-                 style={{ backgroundImage: 'linear-gradient(45deg, rgba(255,255,255,.1) 25%, transparent 25%), linear-gradient(-45deg, rgba(255,255,255,.1) 25%, transparent 25%)', backgroundSize: '30px 30px' }} />
-            {project.featured && (
-              <div className="absolute top-3 right-3 flex items-center gap-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full px-2.5 py-1 text-yellow-400 text-xs font-medium">
-                <HiStar size={12} /> Featured
-              </div>
+      <div className="card overflow-hidden relative">
+        {/* Gradient header */}
+        <div className={`h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
+          <div className="text-6xl">{project.emoji}</div>
+          <div className="absolute inset-0 opacity-10"
+               style={{ backgroundImage: 'linear-gradient(45deg, rgba(255,255,255,.1) 25%, transparent 25%), linear-gradient(-45deg, rgba(255,255,255,.1) 25%, transparent 25%)', backgroundSize: '30px 30px' }} />
+          {project.featured && (
+            <div className="absolute top-3 right-3 flex items-center gap-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full px-2.5 py-1 text-yellow-400 text-xs font-medium">
+              <HiStar size={12} /> Featured
+            </div>
+          )}
+        </div>
+
+        {/* Front content */}
+        <div className="p-5">
+          <h3 className="font-bold text-white text-lg mb-2 group-hover:text-indigo-300 transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">{project.description}</p>
+
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.tech.slice(0, 4).map((t) => (
+              <span key={t} className="text-[10px] px-2 py-0.5 rounded-full font-mono"
+                    style={{ background: `${techColors[t] || '#6366f1'}15`, color: techColors[t] || '#6366f1', border: `1px solid ${techColors[t] || '#6366f1'}30` }}>
+                {t}
+              </span>
+            ))}
+            {project.tech.length > 4 && (
+              <span className="text-[10px] px-2 py-0.5 rounded-full font-mono bg-white/5 text-slate-400 border border-white/10">
+                +{project.tech.length - 4}
+              </span>
             )}
           </div>
 
-          <div className="p-5">
-            <h3 className="font-bold text-white text-lg mb-2 group-hover:text-indigo-300 transition-colors">
-              {project.title}
-            </h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">{project.description}</p>
-
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {project.tech.slice(0, 4).map((t) => (
-                <span key={t} className="text-[10px] px-2 py-0.5 rounded-full font-mono"
-                      style={{ background: `${techColors[t] || '#6366f1'}15`, color: techColors[t] || '#6366f1', border: `1px solid ${techColors[t] || '#6366f1'}30` }}>
-                  {t}
-                </span>
-              ))}
-              {project.tech.length > 4 && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full font-mono bg-white/5 text-slate-400 border border-white/10">
-                  +{project.tech.length - 4}
-                </span>
-              )}
-            </div>
-
-            <div className="flex gap-3">
-              {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer"
-                   className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
-                   onClick={(e) => e.stopPropagation()}>
-                  <FiGithub size={14} /> <span>Code</span>
-                </a>
-              )}
-              {project.live && project.live !== '#' && (
-                <a href={project.live} target="_blank" rel="noopener noreferrer"
-                   className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
-                   onClick={(e) => e.stopPropagation()}>
-                  <FiExternalLink size={14} /> <span>Live</span>
-                </a>
-              )}
-            </div>
+          <div className="flex items-center gap-3">
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer"
+                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
+                 onClick={(e) => e.stopPropagation()}>
+                <FiGithub size={14} /> <span>Code</span>
+              </a>
+            )}
+            {project.live && project.live !== '#' && (
+              <a href={project.live} target="_blank" rel="noopener noreferrer"
+                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
+                 onClick={(e) => e.stopPropagation()}>
+                <FiExternalLink size={14} /> <span>Live</span>
+              </a>
+            )}
+            <span className="ml-auto text-[10px] text-slate-600 group-hover:text-indigo-400 transition-colors select-none">
+              hover for details ↑
+            </span>
           </div>
         </div>
 
-        {/* Back */}
-        <div className="absolute inset-0 card p-6 flex flex-col justify-between"
-             style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-          <div>
-            <div className="text-3xl mb-3">{project.emoji}</div>
-            <h3 className="font-bold text-white text-lg mb-3">{project.title}</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4">{project.longDesc}</p>
-          </div>
-          <div>
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {project.tech.map((t) => (
-                <span key={t} className="text-[10px] px-2 py-0.5 rounded-full font-mono"
-                      style={{ background: `${techColors[t] || '#6366f1'}15`, color: techColors[t] || '#6366f1', border: `1px solid ${techColors[t] || '#6366f1'}30` }}>
-                  {t}
+        {/* Slide-up detail overlay */}
+        <motion.div
+          initial={false}
+          animate={{ y: expanded ? 0 : '100%' }}
+          transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute inset-0 flex flex-col p-6"
+          style={{ background: 'rgba(8, 12, 30, 0.97)', backdropFilter: 'blur(12px)' }}
+        >
+          <div className="flex items-start gap-3 mb-3">
+            <span className="text-3xl flex-shrink-0">{project.emoji}</span>
+            <div>
+              <h3 className="font-bold text-white text-base leading-tight">{project.title}</h3>
+              {project.featured && (
+                <span className="text-[10px] text-yellow-400 font-medium flex items-center gap-1 mt-0.5">
+                  <HiStar size={10} /> Featured Project
                 </span>
-              ))}
-            </div>
-            <div className="flex gap-3">
-              {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer"
-                   className="btn-primary py-2 px-4 text-xs flex items-center gap-1.5"
-                   onClick={(e) => e.stopPropagation()}>
-                  <FiGithub size={13} /><span>View Code</span>
-                </a>
-              )}
-              {project.live && project.live !== '#' && (
-                <a href={project.live} target="_blank" rel="noopener noreferrer"
-                   className="btn-outline py-2 px-4 text-xs flex items-center gap-1.5"
-                   onClick={(e) => e.stopPropagation()}>
-                  <FiExternalLink size={13} /><span>Live Demo</span>
-                </a>
               )}
             </div>
           </div>
-        </div>
-      </motion.div>
+
+          <p className="text-slate-300 text-sm leading-relaxed mb-3 flex-1 overflow-y-auto pr-1">
+            {project.longDesc}
+          </p>
+
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.tech.map((t) => (
+              <span key={t} className="text-[10px] px-2 py-0.5 rounded-full font-mono"
+                    style={{ background: `${techColors[t] || '#6366f1'}20`, color: techColors[t] || '#6366f1', border: `1px solid ${techColors[t] || '#6366f1'}40` }}>
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex gap-3">
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer"
+                 className="btn-primary py-2 px-4 text-xs flex items-center gap-1.5"
+                 onClick={(e) => e.stopPropagation()}>
+                <FiGithub size={13} /><span>View Code</span>
+              </a>
+            )}
+            {project.live && project.live !== '#' && (
+              <a href={project.live} target="_blank" rel="noopener noreferrer"
+                 className="btn-outline py-2 px-4 text-xs flex items-center gap-1.5"
+                 onClick={(e) => e.stopPropagation()}>
+                <FiExternalLink size={13} /><span>Live Demo</span>
+              </a>
+            )}
+          </div>
+        </motion.div>
+      </div>
     </motion.div>
   );
 }

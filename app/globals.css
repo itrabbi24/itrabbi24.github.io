@@ -319,44 +319,45 @@ html.light textarea:focus {
 }
 
 /* Hero section - always stays dark regardless of theme */
-html.light section:first-of-type {
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 40%, #1a0533 70%, #0f0c29 100%) !important;
+html.light #hero {
+  background: linear-gradient(135deg, #030712 0%, #0f0c29 40%, #1a0533 70%, #030712 100%) !important;
 }
 /* Keep glass dark inside the always-dark hero */
-html.light section:first-of-type .glass {
+html.light #hero .glass {
   background: rgba(15, 23, 42, 0.6) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37) !important;
 }
-html.light section:first-of-type .border-white\/10 { border-color: rgba(255,255,255,0.1) !important; }
-html.light section:first-of-type .border-slate-600 { border-color: #4b5563 !important; }
-html.light section:first-of-type .text-slate-500  { color: #64748b !important; }
+html.light #hero .border-white\/10 { border-color: rgba(255,255,255,0.1) !important; }
+html.light #hero .border-white\/5  { border-color: rgba(255,255,255,0.05) !important; }
+html.light #hero .border-slate-600 { border-color: #4b5563 !important; }
+html.light #hero .text-slate-500   { color: #64748b !important; }
 
 /* Restore white/light text inside the always-dark hero */
-html.light section:first-of-type .text-white,
-html.light section:first-of-type .text-white\/80,
-html.light section:first-of-type .text-white\/60 {
+html.light #hero .text-white,
+html.light #hero .text-white\/80,
+html.light #hero .text-white\/60 {
   color: #f8fafc !important;
 }
-html.light section:first-of-type .text-slate-300 { color: #cbd5e1 !important; }
-html.light section:first-of-type .text-slate-400 { color: #94a3b8 !important; }
-html.light section:first-of-type .text-slate-500 { color: #64748b !important; }
-html.light section:first-of-type .text-indigo-300 { color: #a5b4fc !important; }
-html.light section:first-of-type .text-indigo-400 { color: #818cf8 !important; }
-html.light section:first-of-type .text-purple-400  { color: #c084fc !important; }
-html.light section:first-of-type .text-pink-400    { color: #f472b6 !important; }
+html.light #hero .text-slate-300  { color: #cbd5e1 !important; }
+html.light #hero .text-slate-400  { color: #94a3b8 !important; }
+html.light #hero .text-slate-500  { color: #64748b !important; }
+html.light #hero .text-indigo-300 { color: #a5b4fc !important; }
+html.light #hero .text-indigo-400 { color: #818cf8 !important; }
+html.light #hero .text-purple-400 { color: #c084fc !important; }
+html.light #hero .text-pink-400   { color: #f472b6 !important; }
 /* Restore btn-outline inside dark hero */
-html.light section:first-of-type .btn-outline {
-  border-color: rgba(99,102,241,0.6);
-  color: #a78bfa;
+html.light #hero .btn-outline {
+  border-color: rgba(99,102,241,0.6) !important;
+  color: #a78bfa !important;
 }
-html.light section:first-of-type .btn-outline:hover {
-  background: rgba(99,102,241,0.15);
-  border-color: #818cf8;
+html.light #hero .btn-outline:hover {
+  background: rgba(99,102,241,0.15) !important;
+  border-color: #818cf8 !important;
 }
-/* Restore hover:text-white inside dark hero */
-html.light section:first-of-type .hover\:text-white:hover { color: #f8fafc !important; }
-html.light section:first-of-type .hover\:border-white\/30:hover { border-color: rgba(255,255,255,0.3) !important; }
+/* Restore hover states inside dark hero */
+html.light #hero .hover\:text-white:hover        { color: #f8fafc !important; }
+html.light #hero .hover\:border-white\/30:hover  { border-color: rgba(255,255,255,0.3) !important; }
 
 /* White-opacity utility classes become dark-opacity in light mode */
 html.light .bg-white\/5  { background: rgba(0,0,0,0.04) !important; }
