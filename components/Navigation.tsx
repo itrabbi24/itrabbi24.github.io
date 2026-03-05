@@ -23,6 +23,8 @@ export default function Navigation() {
   // In light mode the nav is transparent when at top, sitting over the always-dark hero.
   // Only flip to dark text once the glass background appears (scrolled).
   const lightScrolled = mounted && theme === 'light' && scrolled;
+  // Light mode + not scrolled = transparent nav over dark hero → force white text
+  const lightAtTop = mounted && theme === 'light' && !scrolled;
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 50);
@@ -89,7 +91,11 @@ export default function Navigation() {
                       ? 'text-white'
                       : 'text-slate-400 hover:text-white'
                   }`}
-                  style={lightScrolled ? { color: isActive ? '#1e293b' : '#64748b' } : {}}
+                  style={
+                    lightScrolled ? { color: isActive ? '#1e293b' : '#64748b' } :
+                    lightAtTop    ? { color: isActive ? '#f8fafc'  : '#cbd5e1' } :
+                    {}
+                  }
                 >
                   {isActive && (
                     <motion.span
@@ -112,7 +118,11 @@ export default function Navigation() {
               whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
               className="p-2.5 rounded-full glass border border-white/10 text-slate-300 hover:text-white transition-colors"
-              style={lightScrolled ? { color: '#475569' } : {}}
+              style={
+                lightScrolled ? { color: '#475569' } :
+                lightAtTop    ? { color: '#f8fafc'  } :
+                {}
+              }
               aria-label="Toggle theme"
             >
               {!mounted ? <HiSun size={18} /> : theme === 'dark' ? <HiSun size={18} /> : <HiMoon size={18} />}
