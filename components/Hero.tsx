@@ -8,9 +8,9 @@ import { FiGithub } from 'react-icons/fi';
 const roles = [
   'Full-Stack Software Developer',
   'Problem Solver',
-  '.NET & React Specialist',
+  '.NET & PHP Expert',
   'API Architect',
-  'Clean Code Advocate',
+  'Clean Code Enthusiast',
 ];
 
 function TypingText() {
