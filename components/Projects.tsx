@@ -63,16 +63,6 @@ const projects: Project[] = [
     emoji: '🚛',
   },
   {
-    title: 'Time Sheet Management System',
-    description: 'Transport time tracking and operational management system for logistics operations.',
-    longDesc: 'A Laravel-based system for managing operational time sheets in transport logistics. Tracks work sessions, driver duty hours, route schedules, and generates summaries for payroll and compliance. Clean MVC architecture with MySQL backend.',
-    tech: ['Laravel', 'PHP', 'MySQL', 'Bootstrap'],
-    category: 'Laravel',
-    github: 'https://github.com/itrabbi24',
-    gradient: 'from-orange-600/20 to-red-600/20',
-    emoji: '⏱️',
-  },
-  {
     title: 'IT Stock Inventory Management',
     description: 'Full inventory system for tracking IT equipment purchases, stock levels, storage, and servicing.',
     longDesc: 'Manages the complete IT asset lifecycle — procurement, stock-in/out, storage allocation, maintenance records, and service history. Built with Laravel + PHP + MySQL, featuring role-based access for IT admins and department heads.',
