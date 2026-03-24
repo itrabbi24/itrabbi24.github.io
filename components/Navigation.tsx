@@ -1,188 +1,172 @@
 'use client';
-
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from './ThemeProvider';
-import { HiSun, HiMoon, HiMenu, HiX } from 'react-icons/hi';
+import { FiSun, FiMoon, FiMonitor, FiMenu, FiX } from 'react-icons/fi';
+import { useTheme } from 'next-themes';
+import { ArgLogoIcon } from './ArgLogo';
 
-const navLinks = [
-  { label: 'About',          href: '#about'           },
-  { label: 'Skills',         href: '#skills'          },
-  { label: 'Projects',       href: '#projects'        },
-  { label: 'Experience',     href: '#experience'      },
-  { label: 'Certificates',   href: '#certifications'  },
-  { label: 'Contact',        href: '#contact'         },
+const NAV_LINKS = [
+  { label: 'About',      href: '#about'      },
+  { label: 'Skills',     href: '#skills'     },
+  { label: 'Projects',   href: '#projects'   },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Contact',    href: '#contact'    },
 ];
 
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div className="w-9 h-9" />;
+
+  const opts = [
+    { key: 'dark',   Icon: FiMoon    },
+    { key: 'light',  Icon: FiSun     },
+    { key: 'system', Icon: FiMonitor },
+  ];
+  const idx     = opts.findIndex(o => o.key === theme);
+  const current = opts[idx] ?? opts[0];
+  const next    = opts[(idx + 1) % opts.length];
+  const { Icon } = current;
+
+  return (
+    <button
+      onClick={() => setTheme(next.key)}
+      title={`Switch to ${next.key} mode`}
+      className="w-9 h-9 flex items-center justify-center rounded-xl border transition-all hover:scale-105"
+      style={{ background: 'var(--bg-card)', borderColor: 'var(--border-hi)', color: 'var(--text-3)' }}
+    >
+      <Icon size={14} />
+    </button>
+  );
+}
+
 export default function Navigation() {
-  const { theme, mounted, toggleTheme } = useTheme();
-  const [scrolled, setScrolled]     = useState(false);
-  const [activeSection, setActive]  = useState('');
-  const [menuOpen, setMenuOpen]     = useState(false);
-
-  // In light mode the nav is transparent when at top, sitting over the always-dark hero.
-  // Only flip to dark text once the glass background appears (scrolled).
-  const lightScrolled = mounted && theme === 'light' && scrolled;
-  // Light mode + not scrolled = transparent nav over dark hero → force white text
-  const lightAtTop = mounted && theme === 'light' && !scrolled;
-
-  const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 50);
-
-    const sections = navLinks.map((l) => l.href.slice(1));
-    let current = '';
-    for (const id of sections) {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 120) current = id;
-    }
-    setActive(current);
-  }, []);
+  const [scrolled,    setScrolled]    = useState(false);
+  const [active,      setActive]      = useState('');
+  const [mobileOpen,  setMobileOpen]  = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const ids = NAV_LINKS.map(l => l.href.slice(1));
+      for (const id of [...ids].reverse()) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 130) { setActive(id); break; }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const scrollTo = (href: string) => {
-    setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setMobileOpen(false);
+    const el = document.getElementById(href.slice(1));
+    if (el) window.scrollTo({ top: el.offsetTop - 72, behavior: 'smooth' });
   };
 
   return (
     <>
-      <motion.nav
+      <motion.header
         initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0,   opacity: 1 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'glass border-b border-white/10 py-3'
-            : 'bg-transparent py-5'
-        }`}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'nav-blur' : ''}`}
       >
-        <div className="section-container flex items-center justify-between">
-          {/* Logo */}
-          <motion.a
-            href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="font-mono font-bold text-xl"
-            whileHover={{ scale: 1.05 }}
-          >
-            <span className="gradient-text">&lt;ARG</span>
-            <span
-              className="text-white/80"
-              style={lightScrolled ? { color: '#1e293b' } : { color: '#f8fafc' }}
-            > RABBY</span>
-            <span className="gradient-text">/&gt;</span>
-          </motion.a>
+        <div className="container-xl h-16 flex items-center justify-between">
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map(({ label, href }) => {
-              const id = href.slice(1);
-              const isActive = activeSection === id;
+          {/* ── Logo ── */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-2.5 group"
+          >
+            <ArgLogoIcon
+              size={34}
+              className="transition-transform duration-200 group-hover:scale-105"
+            />
+            <span className="font-black text-lg tracking-tight" style={{ color: 'var(--text)' }}>
+              ARG <span className="gradient-text">RABBY</span>
+            </span>
+          </button>
+
+          {/* ── Desktop pill nav ── */}
+          <nav
+            className="hidden md:flex items-center gap-0.5 px-2 py-1.5 rounded-2xl border"
+            style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}
+          >
+            {NAV_LINKS.map(({ label, href }) => {
+              const isActive = active === href.slice(1);
               return (
                 <button
                   key={href}
                   onClick={() => scrollTo(href)}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                    isActive
-                      ? 'text-white'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                  style={
-                    lightScrolled ? { color: isActive ? '#1e293b' : '#64748b' } :
-                    lightAtTop    ? { color: isActive ? '#f8fafc'  : '#cbd5e1' } :
-                    {}
-                  }
+                  className="relative px-4 py-1.5 rounded-xl text-sm font-medium transition-all duration-200"
+                  style={{
+                    color: isActive ? '#fff' : 'var(--text-2)',
+                    background: isActive
+                      ? 'linear-gradient(135deg, var(--cyan), var(--violet))'
+                      : 'transparent',
+                  }}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="active-pill"
-                      className="absolute inset-0 rounded-lg"
-                      style={{ background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.4)' }}
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
-                    />
-                  )}
-                  <span className="relative z-10">{label}</span>
+                  {label}
                 </button>
               );
             })}
-          </div>
+          </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-3">
-            <motion.button
-              onClick={toggleTheme}
-              whileHover={{ scale: 1.1, rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-2.5 rounded-full glass border border-white/10 text-slate-300 hover:text-white transition-colors"
-              style={
-                lightScrolled ? { color: '#475569' } :
-                lightAtTop    ? { color: '#f8fafc'  } :
-                {}
-              }
-              aria-label="Toggle theme"
-            >
-              {!mounted ? <HiSun size={18} /> : theme === 'dark' ? <HiSun size={18} /> : <HiMoon size={18} />}
-            </motion.button>
-
-            <motion.a
-              href="#contact"
-              onClick={(e) => { e.preventDefault(); scrollTo('#contact'); }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden md:block btn-primary text-sm px-5 py-2.5"
-            >
-              <span>Hire Me</span>
-            </motion.a>
-
-            {/* Hamburger */}
+          {/* ── Right controls ── */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
             <button
-              onClick={() => setMenuOpen((v) => !v)}
-              className="md:hidden p-2 rounded-lg glass border border-white/10 text-slate-300"
+              onClick={() => scrollTo('#contact')}
+              className="hidden sm:flex btn btn-primary py-2 px-4 text-xs"
+            >
+              Hire Me
+            </button>
+            <button
+              onClick={() => setMobileOpen(o => !o)}
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl border transition-all"
+              style={{ background: 'var(--bg-card)', borderColor: 'var(--border-hi)', color: 'var(--text-2)' }}
               aria-label="Toggle menu"
             >
-              {menuOpen ? <HiX size={20} /> : <HiMenu size={20} />}
+              {mobileOpen ? <FiX size={16} /> : <FiMenu size={16} />}
             </button>
           </div>
         </div>
-      </motion.nav>
+      </motion.header>
 
-      {/* Mobile menu */}
+      {/* ── Mobile drawer ── */}
       <AnimatePresence>
-        {menuOpen && (
+        {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-40 glass md:hidden pt-20"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-16 left-0 right-0 z-40 glass border-b md:hidden"
+            style={{ borderColor: 'var(--border)' }}
           >
-            <div className="flex flex-col items-center justify-center h-full gap-6">
-              {navLinks.map(({ label, href }, i) => (
-                <motion.button
-                  key={href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07 }}
-                  onClick={() => scrollTo(href)}
-                  className="text-2xl font-bold text-white/80 hover:text-white transition-colors"
-                >
-                  <span className="gradient-text"># </span>{label}
-                </motion.button>
-              ))}
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.07 }}
-                onClick={() => scrollTo('#contact')}
-                className="btn-primary mt-4"
-              >
-                <span>Hire Me</span>
-              </motion.button>
-            </div>
+            <nav className="container-xl py-4 flex flex-col gap-1">
+              {NAV_LINKS.map(({ label, href }) => {
+                const isActive = active === href.slice(1);
+                return (
+                  <button
+                    key={href}
+                    onClick={() => scrollTo(href)}
+                    className="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
+                    style={{
+                      color: isActive ? 'var(--cyan)' : 'var(--text-2)',
+                      background: isActive ? 'rgba(34,211,238,0.07)' : 'transparent',
+                    }}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+              <button onClick={() => scrollTo('#contact')} className="btn btn-primary mt-2 justify-center">
+                Hire Me
+              </button>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

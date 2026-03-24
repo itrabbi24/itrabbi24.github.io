@@ -1,33 +1,34 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiChevronUp } from 'react-icons/hi';
+import { FiArrowUp } from 'react-icons/fi';
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handler = () => setVisible(window.scrollY > 400);
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    const onScroll = () => setVisible(window.scrollY > 450);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.75, y: 12 }}
+          animate={{ opacity: 1, scale: 1,    y: 0  }}
+          exit={{    opacity: 0, scale: 0.75, y: 12 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 18 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-neon-purple"
-          style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}
+          className="fixed bottom-8 right-8 z-50 w-11 h-11 flex items-center justify-center rounded-xl text-white transition-all hover:scale-110 hover:brightness-110"
+          style={{
+            background: 'linear-gradient(135deg, var(--cyan), var(--violet))',
+            boxShadow: '0 4px 24px var(--glow-c)',
+          }}
           aria-label="Back to top"
         >
-          <HiChevronUp size={22} />
+          <FiArrowUp size={17} />
         </motion.button>
       )}
     </AnimatePresence>

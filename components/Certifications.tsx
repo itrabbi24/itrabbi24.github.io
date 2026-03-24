@@ -1,298 +1,150 @@
 'use client';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { FiAward, FiExternalLink, FiCalendar, FiHash } from 'react-icons/fi';
 
-import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { useTheme } from './ThemeProvider';
-import { FiExternalLink, FiAward, FiCheck } from 'react-icons/fi';
-import { HiShieldCheck, HiCalendar, HiHashtag } from 'react-icons/hi';
-
-type Cert = {
-  name: string;
-  issuer: string;
-  date: string;
-  credentialId: string;
-  url: string;
-};
-
-const certifications: Cert[] = [
-  {
-    name: 'ASP.NET Core – SOLID and Clean Architecture',
-    issuer: 'Udemy',
-    date: 'Oct 2025',
-    credentialId: 'UC-630ce1db-deb3-4a49-99f7-ef6fa600daf2',
-    url: 'https://www.udemy.com/certificate/UC-630ce1db-deb3-4a49-99f7-ef6fa600daf2',
-  },
-  {
-    name: 'Complete Web Development Course',
-    issuer: 'Programming Hero',
-    date: 'Dec 2024',
-    credentialId: 'WEB9-0941',
-    url: '',
-  },
-  {
-    name: 'MERN Stack Level-2 Web Development',
-    issuer: 'Programming Hero',
-    date: 'Dec 2024',
-    credentialId: 'MERN2-2025',
-    url: '',
-  },
-  {
-    name: 'Database Normalization',
-    issuer: 'Great Learning',
-    date: 'Oct 2024',
-    credentialId: 'TVCETXRJ',
-    url: 'https://www.mygreatlearning.com/certificate/TVCETXRJ',
-  },
-  {
-    name: 'Prompt Engineering for ChatGPT',
-    issuer: 'Great Learning',
-    date: 'Oct 2024',
-    credentialId: 'ERVZZYKK',
-    url: 'https://www.mygreatlearning.com/certificate/ERVZZYKK',
-  },
-  {
-    name: '.NET Core Microservices – The Complete Guide',
-    issuer: 'Udemy',
-    date: 'Oct 2023',
-    credentialId: 'UC-5adc180e-cdb0-4d1c-a622-f11bc18ec48f',
-    url: 'https://www.udemy.com/certificate/UC-5adc180e-cdb0-4d1c-a622-f11bc18ec48f',
-  },
-  {
-    name: 'SQL (Advanced)',
-    issuer: 'HackerRank',
-    date: '',
-    credentialId: '232C3CA6B8EA',
-    url: 'https://www.hackerrank.com/certificates/232c3ca6b8ea',
-  },
-  {
-    name: 'SQL (Intermediate)',
-    issuer: 'HackerRank',
-    date: '',
-    credentialId: '7AA2A56CBFE6',
-    url: 'https://www.hackerrank.com/certificates/7aa2a56cbfe6',
-  },
-  {
-    name: 'SQL (Basic)',
-    issuer: 'HackerRank',
-    date: '',
-    credentialId: 'AF2E0E1B978F',
-    url: 'https://www.hackerrank.com/certificates/af2e0e1b978f',
-  },
-  {
-    name: 'Fundamentals of Digital Marketing',
-    issuer: 'Google Digital Garage',
-    date: 'Jun 2020',
-    credentialId: 'HY8 239 TVV',
-    url: '',
-  },
-];
-
-const issuerMeta: Record<string, { color: string; bg: string; emoji: string }> = {
-  'Udemy':                { color: '#a435f0', bg: 'rgba(164,53,240,0.12)', emoji: '🎓' },
-  'Programming Hero':     { color: '#f97316', bg: 'rgba(249,115,22,0.12)', emoji: '🚀' },
-  'Great Learning':       { color: '#0ea5e9', bg: 'rgba(14,165,233,0.12)', emoji: '📘' },
-  'HackerRank':           { color: '#00ea64', bg: 'rgba(0,234,100,0.12)',  emoji: '💻' },
-  'Google Digital Garage':{ color: '#4285F4', bg: 'rgba(66,133,244,0.12)', emoji: '🔵' },
-};
-
-const allIssuers = ['All', ...Array.from(new Set(certifications.map((c) => c.issuer)))];
-
-function CertCard({ cert, index, inView }: { cert: Cert; index: number; inView: boolean }) {
-  const meta = issuerMeta[cert.issuer] ?? { color: '#6366f1', bg: 'rgba(99,102,241,0.12)', emoji: '🏅' };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.07, duration: 0.5 }}
-      whileHover={{ y: -5 }}
-      className="group relative card p-5 flex flex-col gap-4 transition-all duration-300"
-      style={{ borderColor: `${meta.color}25` }}
-    >
-      {/* Glow on hover */}
-      <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{ background: `radial-gradient(circle at top left, ${meta.color}10, transparent 70%)` }}
-      />
-
-      {/* Top row */}
-      <div className="flex items-start justify-between gap-3">
-        {/* Icon */}
-        <div
-          className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 text-xl"
-          style={{ background: meta.bg, border: `1px solid ${meta.color}30` }}
-        >
-          {meta.emoji}
-        </div>
-
-        {/* Verify badge */}
-        {cert.url ? (
-          <a
-            href={cert.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[10px] px-2.5 py-1 rounded-full font-mono flex-shrink-0 transition-all duration-200 hover:scale-105"
-            style={{ background: `${meta.color}15`, color: meta.color, border: `1px solid ${meta.color}30` }}
-          >
-            <FiCheck size={10} /> Verify
-            <FiExternalLink size={9} className="ml-0.5" />
-          </a>
-        ) : (
-          <span className="flex items-center gap-1 text-[10px] px-2.5 py-1 rounded-full font-mono flex-shrink-0 bg-white/5 text-slate-500 border border-white/10">
-            <HiShieldCheck size={10} /> Issued
-          </span>
-        )}
-      </div>
-
-      {/* Title */}
-      <div>
-        <h3 className="font-semibold text-white text-sm leading-snug mb-1.5 group-hover:text-indigo-200 transition-colors">
-          {cert.name}
-        </h3>
-        <span
-          className="inline-block text-[11px] font-medium px-2.5 py-0.5 rounded-full"
-          style={{ background: meta.bg, color: meta.color }}
-        >
-          {cert.issuer}
-        </span>
-      </div>
-
-      {/* Footer meta */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-auto pt-3 border-t border-white/5">
-        {cert.date && (
-          <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
-            <HiCalendar size={12} style={{ color: meta.color }} />
-            {cert.date}
-          </span>
-        )}
-        <span className="flex items-center gap-1.5 text-[11px] text-slate-500 font-mono truncate">
-          <HiHashtag size={11} style={{ color: meta.color }} />
-          {cert.credentialId}
-        </span>
-      </div>
-    </motion.div>
-  );
+interface Cert {
+  _id: string; title: string; issuer: string;
+  date: string; credentialId: string; verifyUrl: string;
+  image: string; order: number;
 }
 
-export default function Certifications() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-  const [activeIssuer, setActiveIssuer] = useState('All');
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
+const ISSUER_THEME: Record<string, { accent: string; bg: string }> = {
+  'Programming Hero': { accent: '#f472b6', bg: 'rgba(244,114,182,0.08)' },
+  'Great Learning':   { accent: '#22d3ee', bg: 'rgba(34,211,238,0.08)'  },
+  'Udemy':            { accent: '#a78bfa', bg: 'rgba(167,139,250,0.08)' },
+  'HackerRank':       { accent: '#34d399', bg: 'rgba(52,211,153,0.08)'  },
+  'Google':           { accent: '#4ade80', bg: 'rgba(74,222,128,0.08)'  },
+  'Microsoft':        { accent: '#60a5fa', bg: 'rgba(96,165,250,0.08)'  },
+  'Default':          { accent: 'var(--violet)', bg: 'rgba(167,139,250,0.07)' },
+};
 
-  const filtered = activeIssuer === 'All'
-    ? certifications
-    : certifications.filter((c) => c.issuer === activeIssuer);
+function getTheme(issuer: string) {
+  for (const key of Object.keys(ISSUER_THEME)) {
+    if (issuer.includes(key)) return ISSUER_THEME[key];
+  }
+  return ISSUER_THEME.Default;
+}
+
+const DEFAULT_CERTS: Cert[] = [
+  { _id:'1', title:'Complete Web Development', issuer:'Programming Hero', date:'Dec 2024', credentialId:'WEB9-0941', verifyUrl:'', image:'', order:1 },
+  { _id:'2', title:'MERN Stack Level-2', issuer:'Programming Hero', date:'Dec 2024', credentialId:'MERN2-2025', verifyUrl:'', image:'', order:2 },
+  { _id:'3', title:'Database Normalization', issuer:'Great Learning', date:'2024', credentialId:'TVCETXRJ', verifyUrl:'https://www.mygreatlearning.com/certificate/TVCETXRJ', image:'', order:3 },
+  { _id:'4', title:'Prompt Engineering for ChatGPT', issuer:'Great Learning', date:'2024', credentialId:'ERVZZYKK', verifyUrl:'https://www.mygreatlearning.com/certificate/ERVZZYKK', image:'', order:4 },
+  { _id:'5', title:'.NET Core Microservices', issuer:'Udemy', date:'2023', credentialId:'UC-5adc180e', verifyUrl:'https://www.udemy.com/certificate/UC-5adc180e/', image:'', order:5 },
+  { _id:'6', title:'ASP.NET Core SOLID & Clean Architecture', issuer:'Udemy', date:'2023', credentialId:'UC-630ce1db', verifyUrl:'https://www.udemy.com/certificate/UC-630ce1db/', image:'', order:6 },
+  { _id:'7', title:'Fundamentals of Digital Marketing', issuer:'Google Digital Garage', date:'2023', credentialId:'HY8 239 TVV', verifyUrl:'', image:'', order:7 },
+  { _id:'8', title:'SQL (Basic, Intermediate & Advanced)', issuer:'HackerRank', date:'2023', credentialId:'', verifyUrl:'https://www.hackerrank.com/itrabbi24', image:'', order:8 },
+];
+
+export default function Certifications() {
+  const [certs,  setCerts]  = useState<Cert[]>(DEFAULT_CERTS);
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
+
+  useEffect(() => {
+    fetch('/api/certifications').then(r => r.json()).then(d => {
+      if (Array.isArray(d) && d.length > 0) setCerts(d);
+    }).catch(() => {});
+  }, []);
 
   return (
-    <section id="certifications" ref={ref} className="py-24 relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px]"
-             style={{ background: 'radial-gradient(ellipse, rgba(99,102,241,0.05) 0%, transparent 70%)' }} />
-      </div>
+    <section id="certifications" className="section relative overflow-hidden">
+      <div className="orb w-[450px] h-[450px] top-[-5%] left-[-8%]"
+        style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.05) 0%, transparent 70%)' }} />
 
-      <div className="section-container">
-        {/* Heading */}
+      <div className="container-xl" ref={ref}>
+
+        {/* header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <span className="font-mono text-sm text-amber-400 uppercase tracking-widest">Verified achievements</span>
-          <h2 className="section-heading mt-2">
-            Licenses &amp; <span className="gradient-text">Certifications</span>
+          <span className="section-label">Credentials</span>
+          <h2 className="text-4xl sm:text-5xl font-black leading-tight mt-1" style={{ color: 'var(--text)' }}>
+            My <span className="gradient-text">Certifications</span>
           </h2>
-          <p className="section-subheading">
-            Continuous learning through industry-recognized courses and certifications
-          </p>
         </motion.div>
 
-        {/* Stats bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-6 mb-12"
-        >
-          {Object.entries(issuerMeta).map(([issuer, meta]) => {
-            const count = certifications.filter((c) => c.issuer === issuer).length;
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {certs.map((cert, i) => {
+            const theme = getTheme(cert.issuer);
             return (
-              <div key={issuer} className="flex items-center gap-2.5 text-sm">
-                <span className="text-base">{meta.emoji}</span>
-                <span className="font-medium" style={{ color: meta.color }}>{issuer}</span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded-full" style={{ background: meta.bg, color: meta.color }}>
-                  ×{count}
-                </span>
-              </div>
-            );
-          })}
-        </motion.div>
-
-        {/* Filter pills */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-2.5 mb-10"
-        >
-          {allIssuers.map((issuer) => {
-            const meta = issuerMeta[issuer];
-            const isActive = activeIssuer === issuer;
-            return (
-              <motion.button
-                key={issuer}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveIssuer(issuer)}
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300"
-                style={isActive ? {
-                  background: meta ? `linear-gradient(135deg, ${meta.color}cc, ${meta.color}88)` : 'linear-gradient(135deg, #6366f1, #a855f7)',
-                  color: '#fff',
-                  boxShadow: meta ? `0 4px 16px ${meta.color}40` : '0 4px 16px rgba(99,102,241,0.3)',
-                } : {
-                  background: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)',
-                  color: '#94a3b8',
-                  border: isLight ? '1px solid rgba(0,0,0,0.12)' : '1px solid rgba(255,255,255,0.1)',
+              <motion.div
+                key={cert._id}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: Math.min(i * 0.09, 0.55) }}
+                whileHover={{ y: -4 }}
+                className="group flex flex-col gap-4 p-5 rounded-2xl border transition-all duration-300"
+                style={{
+                  background: 'var(--bg-card)',
+                  borderColor: 'var(--border)',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = `${theme.accent}35`;
+                  (e.currentTarget as HTMLElement).style.boxShadow = `0 16px 40px rgba(0,0,0,0.2), 0 0 0 1px ${theme.accent}20`;
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = 'none';
                 }}
               >
-                {meta && <span>{meta.emoji}</span>}
-                {issuer}
-                <span className="font-mono opacity-70">
-                  ({issuer === 'All' ? certifications.length : certifications.filter(c => c.issuer === issuer).length})
-                </span>
-              </motion.button>
+                {/* icon + issuer */}
+                <div className="flex items-start gap-3">
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: theme.bg, border: `1px solid ${theme.accent}30` }}
+                  >
+                    <FiAward size={18} style={{ color: theme.accent }} />
+                  </div>
+                  <div>
+                    <p
+                      className="text-[11px] font-bold mb-0.5"
+                      style={{ color: theme.accent }}
+                    >
+                      {cert.issuer}
+                    </p>
+                    <p
+                      className="flex items-center gap-1 text-[10px]"
+                      style={{ color: 'var(--text-3)' }}
+                    >
+                      <FiCalendar size={9} /> {cert.date}
+                    </p>
+                  </div>
+                </div>
+
+                {/* title */}
+                <p className="text-sm font-bold leading-snug flex-1" style={{ color: 'var(--text)' }}>
+                  {cert.title}
+                </p>
+
+                {/* footer */}
+                <div className="space-y-2 pt-3 border-t" style={{ borderColor: 'var(--border)' }}>
+                  {cert.credentialId && (
+                    <p
+                      className="flex items-center gap-1 text-[10px] font-mono"
+                      style={{ color: 'var(--text-3)' }}
+                    >
+                      <FiHash size={10} /> {cert.credentialId}
+                    </p>
+                  )}
+                  {cert.verifyUrl && (
+                    <a
+                      href={cert.verifyUrl}
+                      target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-[11px] font-semibold transition-opacity hover:opacity-70"
+                      style={{ color: theme.accent }}
+                    >
+                      <FiExternalLink size={11} /> Verify Certificate
+                    </a>
+                  )}
+                </div>
+              </motion.div>
             );
           })}
-        </motion.div>
-
-        {/* Grid */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filtered.map((cert, i) => (
-            <CertCard key={cert.credentialId} cert={cert} index={i} inView={inView} />
-          ))}
-        </motion.div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.8 }}
-          className="mt-14 text-center"
-        >
-          <a
-            href="https://www.hackerrank.com/profile/itrabbi24"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors group"
-          >
-            <FiAward className="text-amber-400 group-hover:scale-110 transition-transform" size={16} />
-            View all credentials on HackerRank
-            <FiExternalLink size={13} />
-          </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

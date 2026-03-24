@@ -1,229 +1,248 @@
 'use client';
-
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { useTheme } from './ThemeProvider';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { FiMapPin, FiMail, FiGithub, FiLinkedin, FiCode, FiZap, FiLayers, FiSmartphone } from 'react-icons/fi';
 import Image from 'next/image';
-import {
-  SiDotnet, SiPhp, SiNodedotjs, SiReact, SiVuedotjs,
-  SiMysql, SiMongodb, SiGit, SiTypescript, SiLaravel,
-  SiNextdotjs, SiFlutter,
-} from 'react-icons/si';
-import { HiCode, HiLightningBolt, HiCube, HiGlobe } from 'react-icons/hi';
 
-const highlights = [
-  { icon: HiCode,          label: 'Clean Architecture', desc: 'SOLID principles & design patterns'   },
-  { icon: HiLightningBolt, label: 'High Performance',   desc: 'Optimized, scalable web solutions'    },
-  { icon: HiCube,          label: 'Full-Stack Expertise',desc: 'End-to-end development capabilities' },
-  { icon: HiGlobe,         label: 'RESTful API Design',  desc: 'Web API & enterprise integrations'   },
+interface AboutData {
+  bio: string; location: string; email: string;
+  github: string; linkedin: string;
+  currentFocus: string; yearsExperience: string;
+}
+
+const DEFAULT: AboutData = {
+  bio: "Experienced Full-Stack Software Developer with a strong focus on building scalable and maintainable web applications. Skilled across the full Software Development Life Cycle (SDLC) — from design and architecture to deployment. I specialize in .NET Core, PHP/Laravel, React, and Next.js, and I love creating products that are fast, reliable, and solve real problems.",
+  location: 'Uttara, Dhaka, Bangladesh',
+  email: 'itrabbi24@gmail.com',
+  github: 'https://github.com/itrabbi24',
+  linkedin: 'https://linkedin.com/in/itrabbi24',
+  currentFocus: 'Building enterprise logistics and SaaS products',
+  yearsExperience: '5+',
+};
+
+const STACK = [
+  { key: '"backend"',  val: '".NET Core  ·  PHP/Laravel  ·  Node.js"' },
+  { key: '"frontend"', val: '"React  ·  Next.js  ·  TypeScript"'       },
+  { key: '"mobile"',   val: '"Flutter  ·  Dart"'                        },
+  { key: '"database"', val: '"SQL Server  ·  MongoDB  ·  MySQL"'        },
+  { key: '"devops"',   val: '"Docker  ·  Linux  ·  Nginx"'              },
 ];
 
-const techIcons = [
-  { Icon: SiDotnet,              label: '.NET / C#',    color: '#512BD4' },
-  { Icon: SiPhp,                 label: 'PHP',          color: '#777BB4' },
-  { Icon: SiLaravel,             label: 'Laravel',      color: '#FF2D20' },
-  { Icon: SiNodedotjs,           label: 'Node.js',      color: '#339933' },
-  { Icon: SiReact,               label: 'React',        color: '#61DAFB' },
-  { Icon: SiNextdotjs,           label: 'Next.js',      color: '#ffffff' },
-  { Icon: SiVuedotjs,            label: 'Vue.js',       color: '#4FC08D' },
-  { Icon: SiTypescript,          label: 'TypeScript',   color: '#3178C6' },
-  { Icon: SiMysql,               label: 'SQL Server',   color: '#CC2927' },
-  { Icon: SiMysql,               label: 'MySQL',        color: '#4479A1' },
-  { Icon: SiMongodb,             label: 'MongoDB',      color: '#47A248' },
-  { Icon: SiFlutter,             label: 'Flutter',      color: '#02569B' },
-  { Icon: SiGit,                 label: 'Git',          color: '#F05032' },
+const SERVICES = [
+  { icon: FiLayers,     label: 'Full-Stack Web', desc: 'End-to-end apps from database to UI' },
+  { icon: FiCode,       label: 'Enterprise APIs', desc: '.NET / Laravel RESTful services' },
+  { icon: FiSmartphone, label: 'Mobile Apps',     desc: 'Cross-platform with Flutter' },
+  { icon: FiZap,        label: 'Performance',     desc: 'Optimization & scalable architecture' },
 ];
+
+const QUICK_LINKS = [
+  { Icon: FiMapPin,   text: 'Uttara, Dhaka, Bangladesh', href: undefined           },
+  { Icon: FiMail,     text: 'itrabbi24@gmail.com',       href: 'mailto:itrabbi24@gmail.com' },
+  { Icon: FiGithub,   text: 'github.com/itrabbi24',      href: 'https://github.com/itrabbi24' },
+  { Icon: FiLinkedin, text: 'linkedin.com/in/itrabbi24', href: 'https://linkedin.com/in/itrabbi24' },
+];
+
+const STATS = [
+  { value: '5+',  label: 'Years Experience' },
+  { value: '20+', label: 'Projects Delivered' },
+  { value: '20+', label: 'Technologies' },
+];
+
+const fade  = (dir: 'left' | 'right', delay = 0) => ({
+  initial:  { opacity: 0, x: dir === 'left' ? -28 : 28 },
+  animate:  { opacity: 1, x: 0 },
+  transition: { duration: 0.55, delay },
+});
 
 export default function About() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-  const { theme } = useTheme();
-  const nextjsColor = theme === 'light' ? '#1a1a1a' : '#ffffff';
+  const [data, setData] = useState<AboutData>(DEFAULT);
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.07 });
+
+  useEffect(() => {
+    fetch('/api/about').then(r => r.json()).then(d => {
+      if (d?.bio || d?.location) setData(prev => ({ ...prev, ...d }));
+    }).catch(() => {});
+  }, []);
 
   return (
-    <section id="about" ref={ref} className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-indigo-900/10 to-transparent blur-3xl" />
-      </div>
+    <section id="about" className="section relative overflow-hidden">
+      {/* bg orb */}
+      <div className="orb w-[500px] h-[500px] top-0 right-[-8%]"
+        style={{ background: 'radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%)' }} />
 
-      <div className="section-container">
+      <div className="container-xl" ref={ref}>
+
+        {/* ── Section header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="mb-14"
         >
-          <span className="font-mono text-sm text-indigo-400 uppercase tracking-widest">Get to know me</span>
-          <h2 className="section-heading mt-2">
+          <span className="section-label">Get to know me</span>
+          <h2 className="text-4xl sm:text-5xl font-black leading-tight mt-1" style={{ color: 'var(--text)' }}>
             About <span className="gradient-text">Me</span>
           </h2>
-          <p className="section-subheading">
-            Passionate developer crafting exceptional digital experiences
-          </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Avatar */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex justify-center"
-          >
-            <div className="relative">
-              {/* Glow ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 blur-xl opacity-40 scale-110 animate-pulse-slow" />
+        <div className="grid lg:grid-cols-5 gap-12 items-start">
 
-              {/* Photo */}
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-indigo-500/50">
+          {/* ════ LEFT ════ */}
+          <motion.div
+            {...fade('left', 0.05)}
+            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -28 }}
+            className="lg:col-span-2 flex flex-col items-center lg:items-start gap-6"
+          >
+            {/* Photo */}
+            <div className="relative">
+              <div
+                className="absolute inset-[-2px] rounded-2xl opacity-50 blur-[3px]"
+                style={{ background: 'linear-gradient(135deg, var(--cyan), var(--violet))' }}
+              />
+              <div
+                className="relative w-52 h-52 rounded-2xl overflow-hidden border"
+                style={{ borderColor: 'var(--border-hi)' }}
+              >
                 <Image
                   src="https://avatars.githubusercontent.com/u/52894020?v=4"
-                  alt="ARG RABBY"
-                  fill
-                  className="object-cover"
-                  priority
+                  alt="ARG RABBY" fill className="object-cover" priority
                 />
               </div>
-
-              {/* Floating badges */}
-              <motion.div
-                animate={{ y: [-5, 5, -5] }}
-                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                className="absolute -top-4 -right-4 glass border border-emerald-500/30 rounded-xl px-3 py-2 text-xs font-mono text-emerald-400"
+              {/* years badge */}
+              <div
+                className="absolute -bottom-3 -right-3 px-3.5 py-2 rounded-xl border shadow-lg"
+                style={{ background: 'var(--bg-card)', borderColor: 'var(--border-hi)' }}
               >
-                &lt;Available /&gt;
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [5, -5, 5] }}
-                transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 1 }}
-                className="absolute -bottom-4 -left-4 glass border border-indigo-500/30 rounded-xl px-3 py-2 text-xs font-mono text-indigo-400"
-              >
-                7+ yrs exp.
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Bio */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="space-y-6"
-          >
-            <div className="space-y-4 text-slate-300 leading-relaxed">
-              <p>
-                Hi! I&apos;m <span className="text-white font-semibold">ARG RABBY</span>, an experienced Full-Stack Software Developer
-                with <span className="text-indigo-400 font-medium">7+ years</span> of professional experience building scalable,
-                maintainable web and desktop applications that solve real business problems.
-              </p>
-              <p>
-                I specialize in <span className="text-purple-400 font-medium">enterprise backend systems</span> using
-                C#/.NET Core, PHP/Laravel, and Node.js. On the frontend I build responsive interfaces with
-                React, Next.js, and Vue.js. My database expertise covers
-                <span className="text-pink-400 font-medium"> MS SQL Server, MySQL, and MongoDB</span>, with deep knowledge
-                of LINQ and Entity Framework.
-              </p>
-              <p>
-                Currently working as a <span className="text-indigo-400 font-medium">Software Engineer at Sundarban Courier Service</span>,
-                building PCM (Parcel Courier Management) systems. I&apos;m also exploring
-                <span className="text-cyan-400 font-medium"> Dart &amp; Flutter</span> for cross-platform mobile development.
-              </p>
+                <p className="gradient-text font-black text-sm leading-none">
+                  {data.yearsExperience}
+                </p>
+                <p className="text-[9px] font-medium mt-0.5" style={{ color: 'var(--text-3)' }}>
+                  Years Exp
+                </p>
+              </div>
             </div>
 
-            {/* Quick info */}
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              {[
-                { label: 'Location', value: 'Uttara, Dhaka, BD'      },
-                { label: 'Email',    value: 'itrabbi24@gmail.com'     },
-                { label: 'GitHub',   value: '@itrabbi24'              },
-                { label: 'Currently', value: 'Dart / Flutter'        },
-              ].map(({ label, value }) => (
-                <div key={label} className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-indigo-400 flex-shrink-0" />
-                  <div>
-                    <div className="text-xs text-slate-500 uppercase tracking-wider">{label}</div>
-                    <div className="text-sm font-medium text-white">{value}</div>
+            {/* Quick links */}
+            <div className="w-full space-y-2">
+              {QUICK_LINKS.map(({ Icon, text, href }) => {
+                const inner = (
+                  <>
+                    <Icon size={13} style={{ color: 'var(--cyan)', flexShrink: 0 }} />
+                    <span className="truncate text-[13px]">{text}</span>
+                  </>
+                );
+                const base = `flex items-center gap-3 px-4 py-2.5 rounded-xl border text-sm transition-all`;
+                const style = { background: 'var(--bg-card)', borderColor: 'var(--border)', color: 'var(--text-2)' };
+                return href ? (
+                  <a
+                    key={text}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${base} hover:border-[var(--border-hi)] hover:text-[var(--cyan)]`}
+                    style={style}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={text} className={base} style={style}>
+                    {inner}
                   </div>
+                );
+              })}
+            </div>
+
+            {/* "What I do" cards */}
+            <div className="w-full grid grid-cols-2 gap-2">
+              {SERVICES.map(({ icon: Icon, label, desc }) => (
+                <div
+                  key={label}
+                  className="p-3 rounded-xl border transition-all hover:border-[var(--border-hi)]"
+                  style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}
+                >
+                  <Icon size={15} className="mb-2" style={{ color: 'var(--violet)' }} />
+                  <p className="text-[11px] font-bold mb-0.5" style={{ color: 'var(--text)' }}>{label}</p>
+                  <p className="text-[10px] leading-snug" style={{ color: 'var(--text-3)' }}>{desc}</p>
                 </div>
               ))}
             </div>
+          </motion.div>
 
-            {/* CTA */}
-            <div className="flex gap-4 pt-2">
-              <motion.a
-                href="https://github.com/itrabbi24"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary"
+          {/* ════ RIGHT ════ */}
+          <motion.div
+            initial={{ opacity: 0, x: 28 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.55, delay: 0.12 }}
+            className="lg:col-span-3 space-y-8"
+          >
+            {/* Bio */}
+            <div className="space-y-4">
+              <p className="text-base leading-relaxed" style={{ color: 'var(--text-2)' }}>
+                {data.bio}
+              </p>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-3)' }}>
+                Currently focused on{' '}
+                <span className="font-semibold" style={{ color: 'var(--cyan)' }}>
+                  {data.currentFocus}
+                </span>
+                . Passionate about clean code, system performance, and great developer experience.
+              </p>
+            </div>
+
+            {/* Tech stack code block */}
+            <div
+              className="rounded-2xl border overflow-hidden"
+              style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}
+            >
+              {/* header bar */}
+              <div
+                className="flex items-center gap-2.5 px-5 py-3 border-b"
+                style={{ background: 'var(--bg-alt)', borderColor: 'var(--border)' }}
               >
-                <span>View GitHub</span>
-              </motion.a>
-              <motion.a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-outline"
-              >
-                Contact Me
-              </motion.a>
+                <div className="flex gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
+                </div>
+                <p className="font-mono text-[11px] ml-2" style={{ color: 'var(--text-3)' }}>
+                  stack.json
+                </p>
+              </div>
+              {/* code lines */}
+              <div className="p-5 font-mono text-sm space-y-1.5">
+                <p style={{ color: 'var(--text-3)' }}>{'{'}</p>
+                {STACK.map(({ key, val }, i) => (
+                  <motion.p
+                    key={key}
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.4 + i * 0.09 }}
+                    className="pl-5"
+                  >
+                    <span style={{ color: 'var(--violet)' }}>{key}</span>
+                    <span style={{ color: 'var(--text-3)' }}>: </span>
+                    <span style={{ color: 'var(--emerald)' }}>{val}</span>
+                    {i < STACK.length - 1 && <span style={{ color: 'var(--text-3)' }}>,</span>}
+                  </motion.p>
+                ))}
+                <p style={{ color: 'var(--text-3)' }}>{'}'}</p>
+              </div>
+            </div>
+
+            {/* Stats row */}
+            <div className="grid grid-cols-3 gap-4">
+              {STATS.map(({ value, label }) => (
+                <div
+                  key={label}
+                  className="text-center p-5 rounded-2xl border transition-all hover:border-[var(--border-hi)]"
+                  style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}
+                >
+                  <p className="text-2xl font-black gradient-text leading-none">{value}</p>
+                  <p className="text-xs mt-2 font-medium" style={{ color: 'var(--text-3)' }}>{label}</p>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
-
-        {/* Highlights */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-          {highlights.map(({ icon: Icon, label, desc }, i) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.4 + i * 0.1 }}
-              className="card p-6 text-center group cursor-default neon-border"
-            >
-              <div className="w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center"
-                   style={{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)' }}>
-                <Icon className="text-indigo-400 group-hover:text-purple-400 transition-colors" size={24} />
-              </div>
-              <div className="font-semibold text-white text-sm mb-1">{label}</div>
-              <div className="text-xs text-slate-500">{desc}</div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Tech row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6 }}
-          className="text-center"
-        >
-          <div className="font-mono text-xs text-slate-500 uppercase tracking-widest mb-6">Technologies I work with</div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {techIcons.map(({ Icon, label, color: rawColor }, i) => {
-              const color = rawColor === '#ffffff' ? nextjsColor : rawColor;
-              return (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ delay: 0.6 + i * 0.04 }}
-                whileHover={{ y: -4, scale: 1.15 }}
-                title={label}
-                className="group flex flex-col items-center gap-1.5 cursor-default"
-              >
-                <div className="w-12 h-12 rounded-xl glass border border-white/10 flex items-center justify-center group-hover:border-indigo-500/50 transition-all duration-300">
-                  <Icon size={24} style={{ color }} />
-                </div>
-                <span className="text-[10px] text-slate-500 group-hover:text-slate-300 transition-colors">{label}</span>
-              </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

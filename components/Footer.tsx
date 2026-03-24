@@ -1,90 +1,138 @@
 'use client';
-
 import { motion } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiHeart } from 'react-icons/fi';
-import { SiHackerrank } from 'react-icons/si';
+import { ArgLogoFull } from './ArgLogo';
 
-const navLinks = [
-  { label: 'About',      href: '#about'      },
-  { label: 'Skills',     href: '#skills'     },
-  { label: 'Projects',   href: '#projects'   },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact',    href: '#contact'    },
+const NAV = [
+  { label: 'About',          href: '#about'          },
+  { label: 'Skills',         href: '#skills'         },
+  { label: 'Projects',       href: '#projects'       },
+  { label: 'Experience',     href: '#experience'     },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Contact',        href: '#contact'        },
 ];
 
-const socials = [
-  { icon: FiGithub,     href: 'https://github.com/itrabbi24',                      label: 'GitHub'     },
-  { icon: FiLinkedin,   href: 'https://www.linkedin.com/in/itrabbi24',             label: 'LinkedIn'   },
-  { icon: SiHackerrank, href: 'https://www.hackerrank.com/profile/itrabbi24',      label: 'HackerRank' },
-  { icon: FiMail,       href: 'mailto:itrabbi24@gmail.com',                        label: 'Email'      },
+const SOCIAL = [
+  { Icon: FiGithub,   href: 'https://github.com/itrabbi24',      label: 'GitHub'   },
+  { Icon: FiLinkedin, href: 'https://linkedin.com/in/itrabbi24', label: 'LinkedIn' },
+  { Icon: FiMail,     href: 'mailto:itrabbi24@gmail.com',        label: 'Email'    },
 ];
 
 export default function Footer() {
-  const scrollTo = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+  const scrollTo = (href: string) =>
+    document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/5 py-12">
-      {/* Gradient line top */}
-      <div className="absolute top-0 left-0 right-0 h-px"
-           style={{ background: 'linear-gradient(90deg, transparent, #6366f1, #a855f7, #ec4899, transparent)' }} />
+    <footer
+      className="relative border-t overflow-hidden"
+      style={{ background: 'var(--bg)', borderColor: 'var(--border)' }}
+    >
+      {/* top glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px]"
+        style={{ background: 'linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent)' }}
+      />
 
-      <div className="section-container">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Logo */}
-          <motion.div whileHover={{ scale: 1.05 }}>
+      <div className="container-xl py-14 relative z-10">
+
+        <div className="grid md:grid-cols-3 gap-10 mb-10">
+
+          {/* Brand */}
+          <div>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="font-mono font-bold text-xl"
+              className="mb-3 hover:opacity-90 transition-opacity"
             >
-              <span className="gradient-text">&lt;ARG</span>
-              <span className="text-white/60"> RABBY</span>
-              <span className="gradient-text">/&gt;</span>
+              <ArgLogoFull iconSize={38} />
             </button>
-            <p className="text-xs text-slate-500 mt-1">Full-Stack Software Developer</p>
-          </motion.div>
+            <p className="text-[13px] leading-relaxed mb-4 max-w-[200px]" style={{ color: 'var(--text-3)' }}>
+              Full-Stack Developer building scalable, high-impact applications.
+            </p>
+            <div className="flex items-center gap-2">
+              {SOCIAL.map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank" rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 flex items-center justify-center rounded-xl border transition-all hover:scale-110"
+                  style={{
+                    background: 'var(--bg-card)',
+                    borderColor: 'var(--border-hi)',
+                    color: 'var(--text-3)',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--cyan)';
+                    (e.currentTarget as HTMLElement).style.color = 'var(--cyan)';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-hi)';
+                    (e.currentTarget as HTMLElement).style.color = 'var(--text-3)';
+                  }}
+                >
+                  <Icon size={15} />
+                </a>
+              ))}
+            </div>
+          </div>
 
-          {/* Nav links */}
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            {navLinks.map(({ label, href }) => (
-              <button
-                key={href}
-                onClick={() => scrollTo(href)}
-                className="text-sm text-slate-500 hover:text-white transition-colors"
-              >
-                {label}
-              </button>
-            ))}
-          </nav>
+          {/* Nav */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--text-3)' }}>
+              Navigation
+            </p>
+            <nav className="grid grid-cols-2 gap-x-6 gap-y-2">
+              {NAV.map(({ label, href }) => (
+                <button
+                  key={href}
+                  onClick={() => scrollTo(href)}
+                  className="text-left text-sm transition-all hover:translate-x-0.5"
+                  style={{ color: 'var(--text-3)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-3)')}
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+          </div>
 
-          {/* Socials */}
-          <div className="flex gap-3">
-            {socials.map(({ icon: Icon, href, label }) => (
-              <motion.a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.15, y: -2 }}
-                whileTap={{ scale: 0.9 }}
-                title={label}
-                className="w-9 h-9 rounded-lg glass border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-indigo-500/40 transition-all"
+          {/* Contact */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--text-3)' }}>
+              Contact
+            </p>
+            <div className="space-y-2 text-sm" style={{ color: 'var(--text-3)' }}>
+              <a href="mailto:itrabbi24@gmail.com" className="block hover:text-[var(--cyan)] transition-colors">itrabbi24@gmail.com</a>
+              <a href="https://github.com/itrabbi24" target="_blank" rel="noopener noreferrer" className="block hover:text-[var(--cyan)] transition-colors">github.com/itrabbi24</a>
+              <a href="https://linkedin.com/in/itrabbi24" target="_blank" rel="noopener noreferrer" className="block hover:text-[var(--cyan)] transition-colors">linkedin.com/in/itrabbi24</a>
+              <p>Uttara, Dhaka, Bangladesh</p>
+              <div
+                className="mt-4 flex items-center gap-2 px-3.5 py-2.5 rounded-xl border w-fit"
+                style={{ background: 'rgba(52,211,153,0.07)', borderColor: 'rgba(52,211,153,0.18)' }}
               >
-                <Icon size={16} />
-              </motion.a>
-            ))}
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="avail-ping absolute inset-0 rounded-full" style={{ background: 'var(--emerald)' }} />
+                  <span className="relative rounded-full h-1.5 w-1.5" style={{ background: 'var(--emerald)' }} />
+                </span>
+                <span className="text-[11px] font-semibold" style={{ color: 'var(--emerald)' }}>
+                  Available for work
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-600">
-          <p>
-            &copy; {new Date().getFullYear()} ARG RABBY. All rights reserved.
+        {/* divider */}
+        <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+          style={{ borderColor: 'var(--border)' }}>
+          <p className="text-xs flex items-center gap-1.5" style={{ color: 'var(--text-3)' }}>
+            © {new Date().getFullYear()} ARG RABBY. Made with{' '}
+            <FiHeart size={11} className="text-red-400" />{' '}
+            in Bangladesh
           </p>
-          <p className="flex items-center gap-1.5">
-            Built with <FiHeart className="text-pink-500" size={12} /> using Next.js &amp; Tailwind CSS
+          <p className="text-xs font-mono" style={{ color: 'var(--text-3)' }}>
+            Next.js · TypeScript · Tailwind · MongoDB
           </p>
         </div>
       </div>
