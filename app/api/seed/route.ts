@@ -130,33 +130,26 @@ export async function POST() {
   await Skill.insertMany([
     // Backend
     { name: 'C# / .NET', category: 'Backend', proficiency: 95, color: '#9B59B6', order: 1 },
-    { name: 'PHP / Laravel', category: 'Backend', proficiency: 92, color: '#FF2D20', order: 2 },
-    { name: 'Node.js', category: 'Backend', proficiency: 85, color: '#68A063', order: 3 },
-    { name: 'Python', category: 'Backend', proficiency: 78, color: '#3776AB', order: 4 },
-    { name: 'ASP.NET Core', category: 'Backend', proficiency: 90, color: '#512BD4', order: 5 },
+    { name: 'ASP.NET Core', category: 'Backend', proficiency: 90, color: '#512BD4', order: 2 },
+    { name: 'PHP / Laravel', category: 'Backend', proficiency: 92, color: '#FF2D20', order: 3 },
+    { name: 'Node.js', category: 'Backend', proficiency: 85, color: '#68A063', order: 4 },
+    { name: 'Express.js', category: 'Backend', proficiency: 78, color: '#E2E8F0', order: 5 },
     // Frontend
-    { name: 'React.js', category: 'Frontend', proficiency: 90, color: '#61DAFB', order: 1 },
-    { name: 'Next.js', category: 'Frontend', proficiency: 88, color: '#818CF8', order: 2 },
-    { name: 'Vue.js', category: 'Frontend', proficiency: 82, color: '#42B883', order: 3 },
-    { name: 'TypeScript', category: 'Frontend', proficiency: 88, color: '#3178C6', order: 4 },
-    { name: 'Tailwind CSS', category: 'Frontend', proficiency: 92, color: '#06B6D4', order: 5 },
-    { name: 'JavaScript', category: 'Frontend', proficiency: 90, color: '#F7DF1E', order: 6 },
-    { name: 'HTML / CSS', category: 'Frontend', proficiency: 95, color: '#E34F26', order: 7 },
+    { name: 'JavaScript', category: 'Frontend', proficiency: 90, color: '#F7DF1E', order: 1 },
+    { name: 'jQuery', category: 'Frontend', proficiency: 88, color: '#0769AD', order: 2 },
+    { name: 'React.js', category: 'Frontend', proficiency: 90, color: '#61DAFB', order: 3 },
+    { name: 'Vue.js', category: 'Frontend', proficiency: 82, color: '#42B883', order: 4 },
+    { name: 'HTML / CSS', category: 'Frontend', proficiency: 95, color: '#E34F26', order: 5 },
+    { name: 'Bootstrap', category: 'Frontend', proficiency: 90, color: '#7952B3', order: 6 },
+    { name: 'Tailwind CSS', category: 'Frontend', proficiency: 92, color: '#06B6D4', order: 7 },
     // Database
     { name: 'MS SQL Server', category: 'Database', proficiency: 90, color: '#CC2927', order: 1 },
     { name: 'MySQL', category: 'Database', proficiency: 88, color: '#4479A1', order: 2 },
-    { name: 'MongoDB', category: 'Database', proficiency: 82, color: '#47A248', order: 3 },
-    { name: 'PostgreSQL', category: 'Database', proficiency: 78, color: '#336791', order: 4 },
-    { name: 'Redis', category: 'Database', proficiency: 75, color: '#DC382D', order: 5 },
-    // Mobile
-    { name: 'Flutter', category: 'Mobile', proficiency: 80, color: '#02569B', order: 1 },
-    { name: 'Dart', category: 'Mobile', proficiency: 80, color: '#0175C2', order: 2 },
-    // DevOps
-    { name: 'Docker', category: 'DevOps', proficiency: 78, color: '#2496ED', order: 1 },
-    { name: 'Git / GitHub', category: 'DevOps', proficiency: 92, color: '#F05032', order: 2 },
-    { name: 'Linux', category: 'DevOps', proficiency: 80, color: '#FCC624', order: 3 },
-    { name: 'Nginx', category: 'DevOps', proficiency: 75, color: '#009639', order: 4 },
-    { name: 'CI/CD', category: 'DevOps', proficiency: 72, color: '#2088FF', order: 5 },
+    { name: 'PostgreSQL', category: 'Database', proficiency: 78, color: '#336791', order: 3 },
+    { name: 'SQLite', category: 'Database', proficiency: 74, color: '#003B57', order: 4 },
+    { name: 'MongoDB', category: 'Database', proficiency: 82, color: '#47A248', order: 5 },
+    // Tools
+    { name: 'Git / GitHub', category: 'Tools', proficiency: 92, color: '#F05032', order: 1 },
   ]);
 
   // Seed Experience
