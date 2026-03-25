@@ -5,7 +5,8 @@ import connectDB from '@/lib/mongodb';
 import About from '@/lib/models/About';
 
 export async function GET() {
-  await connectDB();
+  const db = await connectDB();
+  if (!db) return NextResponse.json({});
   const about = await About.findOne();
   return NextResponse.json(about || {});
 }

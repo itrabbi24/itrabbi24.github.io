@@ -5,7 +5,8 @@ import connectDB from '@/lib/mongodb';
 import Skill from '@/lib/models/Skill';
 
 export async function GET() {
-  await connectDB();
+  const db = await connectDB();
+  if (!db) return NextResponse.json([]);
   const skills = await Skill.find().sort({ category: 1, order: 1 });
   return NextResponse.json(skills);
 }

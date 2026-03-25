@@ -5,7 +5,8 @@ import connectDB from '@/lib/mongodb';
 import HeroContent from '@/lib/models/HeroContent';
 
 export async function GET() {
-  await connectDB();
+  const db = await connectDB();
+  if (!db) return NextResponse.json({});
   const hero = await HeroContent.findOne();
   return NextResponse.json(hero || {});
 }

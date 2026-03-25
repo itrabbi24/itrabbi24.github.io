@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiSun, FiMoon, FiMonitor, FiMenu, FiX } from 'react-icons/fi';
 import { useTheme } from 'next-themes';
-import { ArgLogoIcon } from './ArgLogo';
+import { ArgLogoFull } from './ArgLogo';
 
 const NAV_LINKS = [
   { label: 'About',      href: '#about'      },
@@ -80,13 +80,10 @@ export default function Navigation() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-2.5 group"
           >
-            <ArgLogoIcon
-              size={34}
+            <ArgLogoFull
+              iconSize={30}
               className="transition-transform duration-200 group-hover:scale-105"
             />
-            <span className="font-black text-lg tracking-tight" style={{ color: 'var(--text)' }}>
-              ARG <span className="gradient-text">RABBY</span>
-            </span>
           </button>
 
           {/* ── Desktop pill nav ── */}

@@ -5,7 +5,8 @@ import connectDB from '@/lib/mongodb';
 import Project from '@/lib/models/Project';
 
 export async function GET() {
-  await connectDB();
+  const db = await connectDB();
+  if (!db) return NextResponse.json([]);
   const projects = await Project.find({ status: 'active' }).sort({ order: 1, createdAt: -1 });
   return NextResponse.json(projects);
 }

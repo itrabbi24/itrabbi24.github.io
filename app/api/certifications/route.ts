@@ -5,7 +5,8 @@ import connectDB from '@/lib/mongodb';
 import Certification from '@/lib/models/Certification';
 
 export async function GET() {
-  await connectDB();
+  const db = await connectDB();
+  if (!db) return NextResponse.json([]);
   const certs = await Certification.find().sort({ order: 1, createdAt: -1 });
   return NextResponse.json(certs);
 }

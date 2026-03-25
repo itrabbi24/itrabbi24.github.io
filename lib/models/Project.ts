@@ -5,6 +5,7 @@ const ProjectSchema = new Schema({
   description: { type: String, required: true },
   shortDesc: { type: String },
   image: { type: String, default: '' },
+  screenshots: [{ type: String }],
   category: { type: String, default: 'All' },
   techStack: [{ type: String }],
   githubUrl: { type: String },

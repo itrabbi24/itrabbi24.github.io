@@ -5,7 +5,8 @@ import connectDB from '@/lib/mongodb';
 import Experience from '@/lib/models/Experience';
 
 export async function GET() {
-  await connectDB();
+  const db = await connectDB();
+  if (!db) return NextResponse.json([]);
   const experiences = await Experience.find().sort({ order: 1, createdAt: -1 });
   return NextResponse.json(experiences);
 }

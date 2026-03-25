@@ -1,25 +1,11 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FiMapPin, FiMail, FiGithub, FiLinkedin, FiCode, FiZap, FiLayers, FiSmartphone } from 'react-icons/fi';
 import Image from 'next/image';
+import portfolioData from '@/data/portfolio.json';
 
-interface AboutData {
-  bio: string; location: string; email: string;
-  github: string; linkedin: string;
-  currentFocus: string; yearsExperience: string;
-}
-
-const DEFAULT: AboutData = {
-  bio: "Experienced Full-Stack Software Developer with a strong focus on building scalable and maintainable web applications. Skilled across the full Software Development Life Cycle (SDLC) — from design and architecture to deployment. I specialize in .NET Core, PHP/Laravel, React, and Next.js, and I love creating products that are fast, reliable, and solve real problems.",
-  location: 'Uttara, Dhaka, Bangladesh',
-  email: 'itrabbi24@gmail.com',
-  github: 'https://github.com/itrabbi24',
-  linkedin: 'https://linkedin.com/in/itrabbi24',
-  currentFocus: 'Building enterprise logistics and SaaS products',
-  yearsExperience: '5+',
-};
+const data = portfolioData.about;
 
 const STACK = [
   { key: '"backend"',  val: '".NET Core  ·  PHP/Laravel  ·  Node.js"' },
@@ -37,10 +23,10 @@ const SERVICES = [
 ];
 
 const QUICK_LINKS = [
-  { Icon: FiMapPin,   text: 'Uttara, Dhaka, Bangladesh', href: undefined           },
-  { Icon: FiMail,     text: 'itrabbi24@gmail.com',       href: 'mailto:itrabbi24@gmail.com' },
-  { Icon: FiGithub,   text: 'github.com/itrabbi24',      href: 'https://github.com/itrabbi24' },
-  { Icon: FiLinkedin, text: 'linkedin.com/in/itrabbi24', href: 'https://linkedin.com/in/itrabbi24' },
+  { Icon: FiMapPin,   label: 'Location', text: 'Uttara, Dhaka, Bangladesh',  href: undefined                           },
+  { Icon: FiMail,     label: 'Email',    text: 'itrabbi24@gmail.com',         href: 'mailto:itrabbi24@gmail.com'        },
+  { Icon: FiGithub,   label: 'GitHub',   text: 'github.com/itrabbi24',        href: 'https://github.com/itrabbi24'      },
+  { Icon: FiLinkedin, label: 'LinkedIn', text: 'linkedin.com/in/itrabbi24',   href: 'https://linkedin.com/in/itrabbi24' },
 ];
 
 const STATS = [
@@ -56,14 +42,7 @@ const fade  = (dir: 'left' | 'right', delay = 0) => ({
 });
 
 export default function About() {
-  const [data, setData] = useState<AboutData>(DEFAULT);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.07 });
-
-  useEffect(() => {
-    fetch('/api/about').then(r => r.json()).then(d => {
-      if (d?.bio || d?.location) setData(prev => ({ ...prev, ...d }));
-    }).catch(() => {});
-  }, []);
 
   return (
     <section id="about" className="section relative overflow-hidden">
@@ -94,60 +73,77 @@ export default function About() {
             className="lg:col-span-2 flex flex-col items-center lg:items-start gap-6"
           >
             {/* Photo */}
-            <div className="relative">
+            <div className="relative w-56 h-56 mx-auto lg:mx-0">
+              {/* Outer glow ring */}
               <div
-                className="absolute inset-[-2px] rounded-2xl opacity-50 blur-[3px]"
+                className="absolute inset-[-4px] rounded-full blur-[10px] opacity-60"
                 style={{ background: 'linear-gradient(135deg, var(--cyan), var(--violet))' }}
               />
+              {/* Gradient border ring */}
               <div
-                className="relative w-52 h-52 rounded-2xl overflow-hidden border"
-                style={{ borderColor: 'var(--border-hi)' }}
-              >
+                className="absolute inset-[-2px] rounded-full"
+                style={{ background: 'linear-gradient(135deg, var(--cyan), var(--violet))' }}
+              />
+              {/* Photo */}
+              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-transparent">
                 <Image
                   src="https://avatars.githubusercontent.com/u/52894020?v=4"
                   alt="ARG RABBY" fill className="object-cover" priority
                 />
               </div>
-              {/* years badge */}
+
+              {/* <Available /> badge — top right */}
               <div
-                className="absolute -bottom-3 -right-3 px-3.5 py-2 rounded-xl border shadow-lg"
+                className="absolute -top-3 -right-6 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border shadow-lg"
                 style={{ background: 'var(--bg-card)', borderColor: 'var(--border-hi)' }}
               >
-                <p className="gradient-text font-black text-sm leading-none">
-                  {data.yearsExperience}
-                </p>
-                <p className="text-[9px] font-medium mt-0.5" style={{ color: 'var(--text-3)' }}>
-                  Years Exp
-                </p>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="font-mono text-xs font-semibold" style={{ color: 'var(--cyan)' }}>
+                  &lt;Available /&gt;
+                </span>
+              </div>
+
+              {/* yrs exp badge — bottom left */}
+              <div
+                className="absolute -bottom-3 -left-6 flex items-center gap-2 px-3.5 py-2 rounded-lg border shadow-lg"
+                style={{ background: 'var(--bg-card)', borderColor: 'var(--border-hi)' }}
+              >
+                <span className="font-black text-sm gradient-text leading-none">
+                  {data.yearsExperience} yrs exp.
+                </span>
               </div>
             </div>
 
             {/* Quick links */}
-            <div className="w-full space-y-2">
-              {QUICK_LINKS.map(({ Icon, text, href }) => {
-                const inner = (
+            <div className="w-full grid grid-cols-2 gap-2">
+              {QUICK_LINKS.map(({ Icon, label, text, href }) => {
+                const content = (
                   <>
-                    <Icon size={13} style={{ color: 'var(--cyan)', flexShrink: 0 }} />
-                    <span className="truncate text-[13px]">{text}</span>
+                    <div
+                      className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0"
+                      style={{ background: 'rgba(34,211,238,0.1)' }}
+                    >
+                      <Icon size={14} style={{ color: 'var(--cyan)' }} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: 'var(--text-3)' }}>
+                        {label}
+                      </p>
+                      <p className="text-[12px] font-medium truncate" style={{ color: 'var(--text-2)' }}>
+                        {text}
+                      </p>
+                    </div>
                   </>
                 );
-                const base = `flex items-center gap-3 px-4 py-2.5 rounded-xl border text-sm transition-all`;
-                const style = { background: 'var(--bg-card)', borderColor: 'var(--border)', color: 'var(--text-2)' };
+                const cls = `flex items-center gap-2.5 p-2.5 rounded-xl border transition-all`;
+                const sty = { background: 'var(--bg-card)', borderColor: 'var(--border)' };
                 return href ? (
-                  <a
-                    key={text}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${base} hover:border-[var(--border-hi)] hover:text-[var(--cyan)]`}
-                    style={style}
-                  >
-                    {inner}
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                    className={`${cls} hover:border-[var(--cyan)] hover:scale-[1.02]`} style={sty}>
+                    {content}
                   </a>
                 ) : (
-                  <div key={text} className={base} style={style}>
-                    {inner}
-                  </div>
+                  <div key={label} className={cls} style={sty}>{content}</div>
                 );
               })}
             </div>

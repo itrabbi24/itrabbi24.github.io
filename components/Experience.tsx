@@ -1,88 +1,21 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FiBriefcase, FiBook, FiMapPin, FiCalendar } from 'react-icons/fi';
+import portfolioData from '@/data/portfolio.json';
 
 interface Experience {
-  _id: string; type: 'work' | 'education';
+  id: string; type: 'work' | 'education';
   role: string; company: string; location: string; period: string;
   description: string; highlights: string[]; techStack: string[];
   current: boolean;
 }
 
-const DEFAULT: Experience[] = [
-  { _id:'1', type:'work', role:'Software Engineer',
-    company:'Sundarban Courier Service (SCS)', location:'Dhaka, Bangladesh',
-    period:'Sep 2024 – Present', current: true,
-    description:'Building and maintaining enterprise-scale courier and logistics management systems for one of Bangladesh\'s largest courier networks.',
-    highlights:[
-      'Developed PCM (Parcel & Courier Management) system with VB.NET + .NET Core',
-      'Built Async SMS Service for real-time delivery notifications',
-      'RESTful APIs for web and mobile client integration',
-      'Optimized complex SQL Server queries for high-throughput operations',
-    ],
-    techStack:['VB.NET','.NET Core','C#','MS SQL Server','React','ASP.NET Core'] },
-
-  { _id:'2', type:'work', role:'Software Engineer',
-    company:'Shodagor Express Limited', location:'Dhaka, Bangladesh',
-    period:'Jan 2022 – Sep 2024', current: false,
-    description:'Designed and delivered full-stack enterprise solutions for logistics, HR, and field operations management.',
-    highlights:[
-      'FTS (Field Tracking System) for real-time field agent monitoring',
-      'HR Management System — leave, attendance, payroll modules',
-      'Automated reporting and analytics dashboards',
-      'Integrated third-party logistics and payment APIs',
-    ],
-    techStack:['C#','ASP.NET Core','React','MS SQL Server','Laravel','MySQL'] },
-
-  { _id:'3', type:'work', role:'Junior Executive (IT)',
-    company:'Sundarban Courier Service (SCS)', location:'Dhaka, Bangladesh',
-    period:'Oct 2019 – Jan 2022', current: false,
-    description:'Developed internal enterprise tools for operations, inventory, and transport management across the courier network.',
-    highlights:[
-      'Time Sheet Management System for employee attendance tracking',
-      'IT Stock Management for hardware/software inventory',
-      'Transport Management System for vehicle tracking',
-    ],
-    techStack:['PHP','Laravel','MySQL','JavaScript','Bootstrap'] },
-
-  { _id:'4', type:'work', role:'Computer Operator',
-    company:'Sundarban Courier Service (SCS)', location:'Dhaka, Bangladesh',
-    period:'Oct 2017 – Oct 2019', current: false,
-    description:'Handled day-to-day IT operations and data entry for the courier management system, supporting branch-level operations.',
-    highlights:[
-      'Data entry and parcel tracking operations',
-      'Maintained and updated daily operational reports',
-      'Supported internal IT help-desk activities',
-    ],
-    techStack:['MS Office','Data Entry','IT Operations'] },
-
-  { _id:'5', type:'education', role:'B.Sc in Computer Science & Engineering',
-    company:'European University of Bangladesh (EUB)', location:'Dhaka, Bangladesh',
-    period:'2019 – 2022', current: false,
-    description:'Completed degree with Grade A, building a strong foundation in software engineering, algorithms, and web technologies.',
-    highlights:['Grade: A','Focused on software engineering and web application development','Built multiple academic projects using modern tech stacks'],
-    techStack:[] },
-
-  { _id:'6', type:'education', role:'Diploma in Electrical Engineering',
-    company:'Rajshahi Institute of Technology (RIT)', location:'Rajshahi, Bangladesh',
-    period:'2012 – 2016', current: false,
-    description:'Four-year diploma program covering electrical engineering fundamentals, providing a strong technical foundation.',
-    highlights:['Studied electrical systems, circuits, and technical fundamentals','Developed analytical and problem-solving skills'],
-    techStack:[] },
-];
-
 export default function Experience() {
-  const [items,   setItems]   = useState<Experience[]>(DEFAULT);
-  const [tab,     setTab]     = useState<'work' | 'education'>('work');
+  const items = portfolioData.experience as Experience[];
+  const [tab, setTab] = useState<'work' | 'education'>('work');
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
-
-  useEffect(() => {
-    fetch('/api/experience').then(r => r.json()).then(d => {
-      if (Array.isArray(d) && d.length > 0) setItems(d);
-    }).catch(() => {});
-  }, []);
 
   const filtered = items.filter(i => i.type === tab);
 
@@ -151,7 +84,7 @@ export default function Experience() {
             <div className="space-y-5 pl-14">
               {filtered.map((item, i) => (
                 <motion.div
-                  key={item._id}
+                  key={item.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
