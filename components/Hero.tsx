@@ -123,7 +123,7 @@ export default function Hero() {
                 className="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-lg text-[10px] font-bold font-mono border"
                 style={{ background: 'var(--bg-card)', borderColor: 'var(--border-hi)', color: 'var(--emerald)' }}
               >
-                &lt;/AR&gt;
+                &lt;/ARG_RABBY&gt;
               </div>
             </motion.div>
 
